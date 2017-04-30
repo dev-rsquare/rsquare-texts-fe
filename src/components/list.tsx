@@ -5,6 +5,7 @@ import {API_URL} from '../constants';
 
 interface P {
     items: Texts;
+    onClick(id);
 }
 interface S {
     items: Texts;
@@ -17,6 +18,7 @@ export class TextList extends React.Component<P, S> {
         this.save = this.save.bind(this);
         
         this.state = {items: props.items};
+        this.handleIdClicked = this.handleIdClicked.bind(this);
     }
 
     render() {
@@ -24,9 +26,9 @@ export class TextList extends React.Component<P, S> {
         return (
             <div>
                 <div className="-text row">
-                    <strong className="-id col-md-2">id</strong>
-                    <strong className="-text col-md-8">text</strong>
-                    <strong className="-modification col-md-2">modification</strong>
+                    <strong className="-id col-sm-2 col-md-2">id</strong>
+                    <strong className="-text col-sm-8 col-md-8">text</strong>
+                    <strong className="-modification col-sm-2 col-md-2">modification</strong>
                 </div>
                     <List type="simple" itemRenderer={this.renderItem} length={items.length}/>
                 <hr/>
@@ -34,14 +36,20 @@ export class TextList extends React.Component<P, S> {
         );
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.items !== nextProps.items) {
+            this.setState({items: nextProps.items});
+        }
+    }
+
     renderItem(index, key) {
         const {items}    = this.props;
         const {id, text} = items[index];
         return (
             <div className="-text row" key={id}>
-                <span className="-id col-md-2">{id}</span>
+                <span onClick={this.handleIdClicked} className="-id col-sm-2 col-md-2">{id}</span>
                 <TextCell id={id} text={text} update={this.save}/>
-                <button className="-button col-md-2" onClick={_ => this.delete(id)}>delete</button>
+                <button className="-button col-sm-2 col-md-2" onClick={_ => this.delete(id)}>delete</button>
             </div>
         );
     }
@@ -65,5 +73,8 @@ export class TextList extends React.Component<P, S> {
     }
     async delete(id) {
         return false;
+    }
+    handleIdClicked(e) {
+        this.props.onClick(e.target.textContent);
     }
 }

@@ -34,5 +34,8 @@
       "tsx",
       "js"
     ]
+  },
+  "texts": {
+    "endpoint": "https://1r8n4u8sqc.execute-api.ap-northeast-2.amazonaws.com/dev/texts"
   }
 }

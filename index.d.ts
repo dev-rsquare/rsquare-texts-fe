@@ -4,7 +4,3 @@ interface Text {
 }
 type Texts = Text[];
 
-declare module "*.svg" {
-    var resource: string;
-    export = resource;
-}

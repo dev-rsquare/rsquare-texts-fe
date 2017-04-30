@@ -26,7 +26,7 @@ export class TextCell extends React.Component<PText, SText> {
         const {text, className = ''} = this.props;
         const {dirty} = this.state;
         return (
-            <form onSubmit={this.modify} className={`input-group -text col-md-8 ${className} ${dirty}`}>
+            <form onSubmit={this.modify} className={`input-group -text col-sm-8 col-md-8 ${className} ${dirty}`}>
                 <input type="text" className="form-control" placeholder={text} ref={r => this.input = r}/>
                 <span className="input-group-btn">
                     <button className="btn btn-primary" type="submit">modify</button>
@@ -69,23 +69,27 @@ interface PInput {
 interface SInput {}
 
 export class InputCell extends React.Component<PInput, SInput> {
+    id;
+    text;
     constructor(props) {
         super(props);
-
         this.submit = this.submit.bind(this);
     }
     render() {
         const {className} = this.props;
         return (
             <form className={classNames("-text row", className)} onSubmit={this.submit}>
-                <input className="-id col-md-2" placeholder="STRING_ID"/>
-                <input className="-text col-md-8" placeholder="TEXT"/>
-                <button className="-button col-md-2" type="submit">save</button>
+                <input ref={r => this.id = r} className="-id col-md-2" placeholder="STRING_ID"/>
+                <input ref={r => this.text = r} className="-text col-md-8" placeholder="TEXT"/>
+                <button className="-button col-md-2" type="submit">create</button>
             </form>
         );
     }
     submit(e) {
         e.preventDefault();
-        console.log('submit', this);
+        this.props.create(this.id.value, this.text.value);
+    }
+    setData(id) {
+        this.id.value = id;
     }
 }
