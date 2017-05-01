@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as List from 'react-list';
 import {TextCell} from './cell';
-import {API_URL} from '../constants';
+import {API_URL} from '../../constants';
 
 interface P {
     items: Texts;
@@ -14,10 +14,11 @@ interface S {
 export class TextList extends React.Component<P, S> {
     constructor(props) {
         super(props);
+
+        this.state = {items: props.items};
+
         this.renderItem = this.renderItem.bind(this);
         this.save = this.save.bind(this);
-        
-        this.state = {items: props.items};
         this.handleIdClicked = this.handleIdClicked.bind(this);
     }
 

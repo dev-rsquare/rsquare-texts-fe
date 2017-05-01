@@ -9,7 +9,6 @@ interface PText {
 }
 interface SText {
     placeholder: string;
-    dirty: boolean;
 }
 export class TextCell extends React.Component<PText, SText> {
     private input;
@@ -17,17 +16,17 @@ export class TextCell extends React.Component<PText, SText> {
     constructor(props) {
         super(props);
 
-        this.state = {placeholder: props.text, dirty: false};
+        this.state = {placeholder: props.text};
+
         this.modify = this.modify.bind(this);
         this.revert = this.revert.bind(this);
         this.clear = this.clear.bind(this);
     }
     render() {
         const {text, className = ''} = this.props;
-        const {dirty} = this.state;
         return (
-            <form onSubmit={this.modify} className={`input-group -text col-sm-8 col-md-8 ${className} ${dirty}`}>
-                <input type="text" className="form-control" placeholder={text} ref={r => this.input = r}/>
+            <form className={classNames('input-group', '-text', 'col-sm-8', 'col-md-8' ,className)} onSubmit={this.modify}>
+                <input className="form-control" type="text" placeholder={text} ref={r => this.input = r}/>
                 <span className="input-group-btn">
                     <button className="btn btn-primary" type="submit">modify</button>
                 </span>

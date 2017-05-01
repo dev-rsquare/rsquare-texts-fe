@@ -1,1 +1,3 @@
-export const API_URL = 'http://sls.bglee.me/texts';
+import * as packageInfo from '../package.json';
+
+export const API_URL = packageInfo.texts.endpoint;
