@@ -1,8 +1,8 @@
 import * as React from 'react';
-import * as logo from '../logo.svg';
+import * as logo from './assets/logo.svg';
 import './app.css';
 import {TextList} from './common/list';
-import {InputCell} from './common/cell';
+import {InputCell} from './input/cell';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {getTexts, createText, updateText, deleteText} from '../modules/texts/index';
@@ -40,7 +40,7 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
             this.handleIdClicked = this.handleIdClicked.bind(this);
         }
         render() {
-            const {items = [], fetching} = this.props;
+            const {items = [], fetching, deleteText} = this.props;
             return (
                 <div className="App">
                     <div className="App-header">
@@ -50,11 +50,12 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                     <div className="container-fluid">
                         {items.length === 0 && fetching
                             ? `loading...`
-                            : <TextList items={items} onClick={this.handleIdClicked}/>}
+                            : <TextList items={items} onClick={this.handleIdClicked} remove={deleteText}/>}
                         <div className="row justify-content-md-center">
                             <InputCell className="col-md-10 col-sm-10"
-                                ref={r => this.inputCell = r}
-                                create={this.props.createText}/>
+                                       ref={r => this.inputCell = r}
+                                       items={items}
+                                       create={this.props.createText}/>
                         </div>
                     </div>
                 </div>
@@ -63,8 +64,8 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
         componentDidMount() {
             this.props.getTexts();
         }
-        handleIdClicked(id) {
-            this.inputCell.setData(id);
+        handleIdClicked(id, text) {
+            this.inputCell.setData(id, text);
         }
     }
 );

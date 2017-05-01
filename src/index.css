@@ -13,9 +13,6 @@ body {
     background-color: rgba(255,0,0, .5);
     color: white;
 }
-.-text .-text {
-    border: 0;
-}
 .-text .-text .input-group-btn {
     display: none;
 }

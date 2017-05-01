@@ -1,16 +1,16 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 
-interface PText {
+interface P {
     id: string;
     text: string;
     update(id, text: string): Promise<boolean>;
     className?: string;
 }
-interface SText {
+interface S {
     placeholder: string;
 }
-export class TextCell extends React.Component<PText, SText> {
+export class TextCell extends React.Component<P, S> {
     private input;
 
     constructor(props) {
@@ -58,37 +58,5 @@ export class TextCell extends React.Component<PText, SText> {
     private clear() {
         console.log('clear');
         this.input.value = '';
-    }
-}
-
-interface PInput {
-    className?: string;
-    create(id, text): Promise<boolean>;
-}
-interface SInput {}
-
-export class InputCell extends React.Component<PInput, SInput> {
-    id;
-    text;
-    constructor(props) {
-        super(props);
-        this.submit = this.submit.bind(this);
-    }
-    render() {
-        const {className} = this.props;
-        return (
-            <form className={classNames("-text row", className)} onSubmit={this.submit}>
-                <input ref={r => this.id = r} className="-id col-md-2" placeholder="STRING_ID"/>
-                <input ref={r => this.text = r} className="-text col-md-8" placeholder="TEXT"/>
-                <button className="-button col-md-2" type="submit">create</button>
-            </form>
-        );
-    }
-    submit(e) {
-        e.preventDefault();
-        this.props.create(this.id.value, this.text.value);
-    }
-    setData(id) {
-        this.id.value = id;
     }
 }

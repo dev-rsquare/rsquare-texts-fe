@@ -13,6 +13,7 @@ const state2props = (state): C => ({});
 const dispatch2props = bindActionCreators.bind(null, {});
 
 type WrapperProps = C&D&P;
+
 export const Wrapper = connect<C, D, P>(state2props, dispatch2props)(
     class extends React.Component<WrapperProps, S> {
         render() {
