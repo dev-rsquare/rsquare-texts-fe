@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as List from 'react-list';
 
 interface P {
-    items: Texts;
+    items: IText[];
     onClick(id, text: string);
     remove(id: string);
 }
@@ -10,9 +10,6 @@ interface S {
 }
 
 export class TextList extends React.Component<P, S> {
-    private id;
-    private text;
-
     constructor(props) {
         super(props);
 
@@ -37,22 +34,23 @@ export class TextList extends React.Component<P, S> {
         );
     }
 
-    renderItem(index, key) {
-        const {items} = this.props;
-        const {id, text, createdAt, updatedAt} = items[index];
+    renderItem(index) {
+        const {items}  = this.props;
+        const textItem = items[index];
+        const id       = textItem.getId();
         return (
             <div className="-text row" key={id} onClick={this.handleRowClicked}>
                 <span className="-id col-sm-2 col-md-2">
                     {id}
                 </span>
                 <span className="-text col-sm-7 col-md-7">
-                    {text}
+                    {textItem.getText()}
                 </span>
                 <span className="-text col-sm-1 col-md-1">
-                    {createdAt}
+                    {textItem.getCreatedAt()}
                 </span>
                 <span className="-text col-sm-1 col-md-1">
-                    {updatedAt}
+                    {textItem.getUpdatedAt()}
                 </span>
                 <button className="-button-bg -gray col-md-1 col-sm-1" onClick={_ => this.props.remove(id)}>
                     <span className="-button-text">delete</span>

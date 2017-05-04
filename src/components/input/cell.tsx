@@ -4,7 +4,7 @@ import * as classNames from 'classnames';
 interface P {
     className?: string;
     create(id, text): Promise<boolean>;
-    items: Texts;
+    items: IText[];
 }
 interface S {
     match: boolean;
@@ -38,7 +38,7 @@ export class InputCell extends React.Component<P, S> {
         this.props.create(this.id.value, this.text.value);
     }
     handleChange() {
-        this.setState({match: this.props.items.some(({id}) => id === this.id.value)});
+        this.setState({match: this.props.items.some(item => item.getId() === this.id.value)});
     }
     setData(id, text) {
         this.id.value = id;

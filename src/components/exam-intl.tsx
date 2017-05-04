@@ -8,7 +8,7 @@ addLocaleData(ko);
 interface P {
 }
 interface C {
-    items: Texts;
+    items: IText[];
     fetching: number;
     messages: any;
 }
@@ -32,7 +32,7 @@ export const ExamIntl = connect<C, D, P>(state2props)(
             return (
                 messages &&
                     <IntlProvider locale={navigator.language} messages={messages}>
-                        <div>{items.map(item => <Row key={item.id} {...item}/>)}</div>
+                        <div>{items.map(item => <Row key={item.getId()} {...item.getRawData()}/>)}</div>
                     </IntlProvider>
             );
         }
