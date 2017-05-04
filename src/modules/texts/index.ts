@@ -75,6 +75,10 @@ export const textsReducer = (state = {fetching: 0}, action) => {
             return {...state, ...action.payload, fetching: --state.fetching};
         case OK_CREATE_TEXT:
             return {...state, ...action.payload, fetching: --state.fetching};
+        case OK_DELETE_TEXT:
+            return {...state, fetching: --state.fetching};
+        case OK_UPDATE_TEXT:
+            return {...state, fetching: --state.fetching};
         case CREATED_INTL:
             return {...state, messages: action.payload};
 
