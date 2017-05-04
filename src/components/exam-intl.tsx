@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {addLocaleData, FormattedMessage, FormattedPlural, IntlProvider} from 'react-intl';
+import {addLocaleData, FormattedMessage, FormattedRelative, FormattedPlural, FormattedHTMLMessage, IntlProvider} from 'react-intl';
 import * as ko from 'react-intl/locale-data/ko'
 
 addLocaleData(ko);
@@ -31,35 +31,56 @@ export const ExamIntl = connect<C, D, P>(state2props)(
             }
             return (
                 messages &&
-                    <IntlProvider locale={navigator.language} messages={messages}>
-                        <div>{items.map(item => <Row key={item.getId()} {...item.getRawData()}/>)}</div>
-                    </IntlProvider>
+                <IntlProvider locale={navigator.language} messages={messages}>
+                    <div>
+                        <div className="row">
+                            FormattedMessage
+                            <div>{items.map(item => <FormattedMessageRow key={item.getId()} {...item.getRawData()}/>)}</div>
+                        </div>
+                        {/*<div className="row">*/}
+                            {/*FormattedRelative*/}
+                            {/*<div>{items.map(item => <FormattedRelativeRow key={item.getId()} {...item.getRawData()}/>)}</div>*/}
+                        {/*</div>*/}
+                        {/*<div className="row">*/}
+                            {/*FormattedPlural*/}
+                            {/*<div>{items.map(item => <FormattedPluralRow key={item.getId()} {...item.getRawData()}/>)}</div>*/}
+                        {/*</div>*/}
+                        <div className="row">
+                            FormattedFormattedHTMLMessageRow
+                            <div>{items.map(item => <FormattedFormattedHTMLMessageRow key={item.getId()} {...item.getRawData()}/>)}</div>
+                        </div>
+                    </div>
+                </IntlProvider>
             );
         }
     }
 );
 
-const Row = ({id}) =>
+const RowFactory           = element => ({id}) =>
     <div style={{float: 'left', border: '1px solid green', margin: '0 10px 10px 0'}}>
         <div style={{borderBottom: '1px solid green'}}>
             {id}
         </div>
         <div style={{float: 'left'}}>
             <code>&lt;span&gt;</code>
-            <FormattedMessage id={id}/>
+            {React.createElement(element, {id})}
             <code>&lt;/span&gt;</code>
         </div>
 
         <div style={{float: 'left', borderLeft: '1px solid green'}}>
             <code>&lt;pre&gt;</code>
-            <FormattedMessage id={id} tagName="pre"/>
+            {React.createElement(element, {id, tagName: 'pre'})}
             <code>&lt;/pre&gt;</code>
         </div>
 
         <div style={{float: 'left', borderLeft: '1px solid green'}}>
             <code>&lt;div&gt;</code>
-            <FormattedMessage id={id} tagName="div"/>
+            {React.createElement(element, {id, tagName: 'div'})}
             <code>&lt;/div&gt;</code>
         </div>
     </div>;
+const FormattedMessageRow  = RowFactory(FormattedMessage);
+const FormattedRelativeRow = RowFactory(FormattedRelative);
+const FormattedPluralRow = RowFactory(FormattedPlural);
+const FormattedFormattedHTMLMessageRow = RowFactory(FormattedHTMLMessage);
 
