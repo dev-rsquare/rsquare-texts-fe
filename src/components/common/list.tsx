@@ -24,7 +24,7 @@ export class TextList extends React.Component<P, S> {
         const {items} = this.props;
         return (
             <div>
-                <div className="-text row">
+                <div className="-text -header row">
                     <strong className="-id col-sm-2 col-md-2">id</strong>
                     <strong className="-text col-sm-8 col-md-8">text</strong>
                     <strong className="-modification col-sm-2 col-md-2">modification</strong>
@@ -46,7 +46,9 @@ export class TextList extends React.Component<P, S> {
                 <span className="-text col-sm-8 col-md-8">
                     {text}
                 </span>
-                <button className="-button col-sm-2 col-md-2" onClick={_ => this.props.remove(id)}>delete</button>
+                <button className="-button-bg -gray col-md-2 col-sm-2" onClick={_ => this.props.remove(id)}>
+                    <span className="-button-text">delete</span>
+                </button>
             </div>
         );
     }

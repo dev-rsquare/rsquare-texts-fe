@@ -51,12 +51,10 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                         {items.length === 0 && fetching
                             ? `loading...`
                             : <TextList items={items} onClick={this.handleIdClicked} remove={deleteText}/>}
-                        <div className="row justify-content-md-center">
-                            <InputCell className="col-md-10 col-sm-10"
+                            <InputCell className="row"
                                        ref={r => this.inputCell = r}
                                        items={items}
                                        create={this.props.createText}/>
-                        </div>
                     </div>
                 </div>
             );

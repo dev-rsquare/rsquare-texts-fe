@@ -24,10 +24,12 @@ export class InputCell extends React.Component<P, S> {
         const {className} = this.props;
         const {match} = this.state;
         return (
-            <form className={classNames('-text row', className)} onSubmit={this.submit}>
-                <input className="-id col-md-2" ref={r => this.id = r} placeholder="STRING_ID" onChange={this.handleChange}/>
-                <input className="-text col-md-8" ref={r => this.text = r} placeholder="TEXT"/>
-                <button className="-button col-md-2" type="submit">{match ? 'update' : 'create'}</button>
+            <form className={classNames('-text -input row', className)} onSubmit={this.submit}>
+                <input className="form-control -id col-md-2" ref={r => this.id = r} placeholder="STRING_ID" onChange={this.handleChange}/>
+                <input className="form-control -text col-md-8" ref={r => this.text = r} placeholder="TEXT"/>
+                <button className="-button-bg col-md-2" type="submit">
+                    <span className="-button-text">{match ? 'update' : 'create'}</span>
+                </button>
             </form>
         );
     }
