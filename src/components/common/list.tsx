@@ -22,11 +22,12 @@ export class TextList extends React.Component<P, S> {
         return (
             <div>
                 <div className="-text -header row">
-                    <strong className="-id col-lg-1 col-md-1">id</strong>
+                    <strong className="-id col-lg-2 col-md-2">id</strong>
                     <strong className="-text col-lg-6 col-md-6">text</strong>
-                    <strong className="col-lg-2 col-md-2">created at</strong>
-                    <strong className="col-lg-2 col-md-2">updated at</strong>
-                    <strong className="-modification col-lg-1 col-md-1"></strong>
+                    <div className="row col-md-3">
+                        <strong className="col-lg-6 col-md-6">created at</strong>
+                        <strong className="col-lg-6 col-md-6">updated at</strong>
+                    </div>
                 </div>
                 <List type="simple" itemRenderer={this.renderItem} length={items.length}/>
                 <hr/>
@@ -38,20 +39,15 @@ export class TextList extends React.Component<P, S> {
         const {items}  = this.props;
         const textItem = items[index];
         const id       = textItem.getId();
+
         return (
             <div className="-text row" key={id} onClick={this.handleRowClicked}>
-                <span className="-id col-lg-1 col-md-1">
-                    {id}
-                </span>
-                <span className="-text col-lg-6 col-md-6">
-                    {textItem.getText()}
-                </span>
-                <span className="-text col-lg-2 col-md-2">
-                    {textItem.getCreatedAt()}
-                </span>
-                <span className="-text col-lg-2 col-md-2">
-                    {textItem.getUpdatedAt()}
-                </span>
+                <span className="-id col-lg-2 col-md-2">{id}</span>
+                <span className="-text col-lg-6 col-md-6">{textItem.getText()}</span>
+                <div className="row col-md-3">
+                    <span className="-text col-lg-6 col-md-6">{textItem.getCreatedAt()}</span>
+                    <span className="-text col-lg-6 col-md-6">{textItem.getUpdatedAt()}</span>
+                </div>
                 <button className="-button-bg -gray col-lg-1 col-md-1" onClick={_ => this.props.remove(id)}>
                     <span className="-button-text">delete</span>
                 </button>

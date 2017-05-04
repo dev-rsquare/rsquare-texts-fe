@@ -19,15 +19,16 @@ export class InputCell extends React.Component<P, S> {
 
     constructor(props) {
         super(props);
-        this.submit         = this.submit.bind(this);
-        this.handleChangeId = this.handleChangeId.bind(this);
+        this.submit           = this.submit.bind(this);
+        this.handleChangeId   = this.handleChangeId.bind(this);
+        this.handleChangeText = this.handleChangeText.bind(this);
     }
 
     render() {
         const {className, fetching} = this.props;
         const {match}               = this.state;
         return (
-            <form className={classNames('-text -input row', className)} onSubmit={this.submit}>
+            <form className={className} onSubmit={this.submit}>
                 <input className="form-control -id col-md-2" ref={r => this.id = r} placeholder="STRING_ID" onChange={this.handleChangeId}/>
                 <textarea className="form-control -text col-md-8" ref={r => this.text = r} placeholder="TEXT" onChange={this.handleChangeText}/>
                 <button className="-button-bg col-md-2" type="submit" disabled={fetching}>
