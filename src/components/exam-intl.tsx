@@ -34,7 +34,7 @@ export const ExamIntl = connect<C, D, P>(state2props)(
                 <IntlProvider locale={navigator.language} messages={messages}>
                     <div>
                         <div className="row">
-                            FormattedMessage
+                            <h1>FormattedMessage</h1>
                             <div>{items.map(item => <FormattedMessageRow key={item.getId()} {...item.getRawData()}/>)}</div>
                         </div>
                         {/*<div className="row">*/}
@@ -46,7 +46,7 @@ export const ExamIntl = connect<C, D, P>(state2props)(
                             {/*<div>{items.map(item => <FormattedPluralRow key={item.getId()} {...item.getRawData()}/>)}</div>*/}
                         {/*</div>*/}
                         <div className="row">
-                            FormattedFormattedHTMLMessageRow
+                            <h1>FormattedFormattedHTMLMessageRow</h1>
                             <div>{items.map(item => <FormattedFormattedHTMLMessageRow key={item.getId()} {...item.getRawData()}/>)}</div>
                         </div>
                     </div>
