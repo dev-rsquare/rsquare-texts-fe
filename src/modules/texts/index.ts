@@ -8,6 +8,8 @@ const [PEND_CREATE_TEXT, OK_CREATE_TEXT, ERR_CREATE_TEXT] = pendingOkErr('CREATE
 const [PEND_UPDATE_TEXT, OK_UPDATE_TEXT, ERR_UPDATE_TEXT] = pendingOkErr('UPDATE_TEXT');
 const [PEND_DELETE_TEXT, OK_DELETE_TEXT, ERR_DELETE_TEXT] = pendingOkErr('DELETE_TEXT');
 
+const [CREATE_INTL, CREATED_INTL] = ['CREATE_INTL', 'CREATED_INTL'];
+
 export const getTexts = () => ({type: PEND_GET_TEXTS});
 export const createText = (id, text) => ({type: PEND_CREATE_TEXT, payload: {id, text}});
 export const updateText = (id, text) => ({type: PEND_UPDATE_TEXT, payload: {id, text}});
@@ -17,8 +19,21 @@ const texts$ = (action$, store) =>
     action$
         .ofType(PEND_GET_TEXTS)
         .flatMap(_ => Observable.ajax(API_URL))
-        .map(payload => ({type: OK_GET_TEXTS, payload: payload.response}))
+        .mergeMap(payload => [
+            {type: OK_GET_TEXTS, payload: payload.response},
+            {type: CREATE_INTL, payload: payload.response}
+        ])
         .catch(_ => ERR_GET_TEXTS);
+
+const intl$ = (action$, store) =>
+    action$
+        .ofType(CREATE_INTL)
+        .map(response =>
+            response.payload.items.reduce((result, curr) => {
+                result[curr.id] = curr.text;
+                return result;
+            }, {}))
+        .map(payload => ({type: CREATED_INTL, payload}));
 
 const createText$ = createIdMethodActionEpic$({
     method: 'post',
@@ -44,6 +59,7 @@ const deleteText$ = createIdMethodActionEpic$({
 
 export const textsEpics$ = combineEpics(
     texts$,
+    intl$,
     createText$,
     updateText$,
     deleteText$
@@ -54,6 +70,8 @@ export const textsReducer = (state = {fetching: 0}, action) => {
             return {...state, ...action.payload, fetching: --state.fetching};
         case OK_CREATE_TEXT:
             return {...state, ...action.payload, fetching: --state.fetching};
+        case CREATED_INTL:
+            return {...state, messages: action.payload};
 
         case PEND_GET_TEXTS:
         case PEND_CREATE_TEXT:

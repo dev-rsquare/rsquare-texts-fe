@@ -1,4 +1,8 @@
-interface Text {
+interface Data {
+    createdAt: string;
+    updatedAt: string;
+}
+interface Text extends Data {
     id: string;
     text: string;
 }
@@ -10,5 +14,6 @@ interface MasterState {
 interface TextsState {
     items: Texts;
     count: number;
+    messages: any;
     fetching: number;
 }

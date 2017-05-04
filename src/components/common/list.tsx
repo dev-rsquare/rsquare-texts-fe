@@ -26,8 +26,10 @@ export class TextList extends React.Component<P, S> {
             <div>
                 <div className="-text -header row">
                     <strong className="-id col-sm-2 col-md-2">id</strong>
-                    <strong className="-text col-sm-8 col-md-8">text</strong>
-                    <strong className="-modification col-sm-2 col-md-2">modification</strong>
+                    <strong className="-text col-sm-8 col-md-7">text</strong>
+                    <strong className="col-sm-1 col-md-1">created at</strong>
+                    <strong className="col-sm-1 col-md-1">updated at</strong>
+                    <strong className="-modification col-sm-1 col-md-1"></strong>
                 </div>
                 <List type="simple" itemRenderer={this.renderItem} length={items.length}/>
                 <hr/>
@@ -37,16 +39,22 @@ export class TextList extends React.Component<P, S> {
 
     renderItem(index, key) {
         const {items} = this.props;
-        const {id, text} = items[index];
+        const {id, text, createdAt, updatedAt} = items[index];
         return (
             <div className="-text row" key={id} onClick={this.handleRowClicked}>
                 <span className="-id col-sm-2 col-md-2">
                     {id}
                 </span>
-                <span className="-text col-sm-8 col-md-8">
+                <span className="-text col-sm-7 col-md-7">
                     {text}
                 </span>
-                <button className="-button-bg -gray col-md-2 col-sm-2" onClick={_ => this.props.remove(id)}>
+                <span className="-text col-sm-1 col-md-1">
+                    {createdAt}
+                </span>
+                <span className="-text col-sm-1 col-md-1">
+                    {updatedAt}
+                </span>
+                <button className="-button-bg -gray col-md-1 col-sm-1" onClick={_ => this.props.remove(id)}>
                     <span className="-button-text">delete</span>
                 </button>
             </div>

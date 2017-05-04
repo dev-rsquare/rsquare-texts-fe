@@ -27,7 +27,10 @@ export const createIdMethodActionEpic$ = ({method, pending, ok, err, nextAction 
                     url : [API_URL, id].join('/'),
                     body: JSON.stringify(rest)
                 }))
-            .map(payload => ({type: ok, payload: payload.response}))
+            .mergeMap(payload => [
+                {type: ok, payload: payload.response},
+                nextAction
+            ])
             .map(_ => nextAction)
             .catch(_ => err);
 

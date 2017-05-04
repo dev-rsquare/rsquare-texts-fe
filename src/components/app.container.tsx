@@ -6,6 +6,7 @@ import {InputCell} from './input/cell';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {getTexts, createText, updateText, deleteText} from '../modules/texts/index';
+import {ExamIntl} from './exam-intl';
 
 interface P {}
 interface C {
@@ -51,10 +52,14 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                         {items.length === 0 && fetching
                             ? `loading...`
                             : <TextList items={items} onClick={this.handleIdClicked} remove={deleteText}/>}
-                            <InputCell className="row"
-                                       ref={r => this.inputCell = r}
-                                       items={items}
-                                       create={this.props.createText}/>
+                        <InputCell className="row"
+                                   ref={r => this.inputCell = r}
+                                   items={items}
+                                   create={this.props.createText}/>
+                    </div>
+                    <hr/>
+                    <div className="container-fluid">
+                        <ExamIntl/>
                     </div>
                 </div>
             );
