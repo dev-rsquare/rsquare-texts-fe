@@ -52,7 +52,7 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                         {items.length === 0 && fetching
                             ? `loading...`
                             : <TextList items={items} onClick={this.handleIdClicked} remove={deleteText}/>}
-                        {/*<InputCell className="row" ref={r => this.inputCell = r} items={items} create={this.props.createText}/>*/}
+                        <InputCell className="row" ref={r => this.inputCell = r} items={items} create={this.props.createText}/>
                     </div>
                     <hr/>
                     <div className="container-fluid">

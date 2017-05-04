@@ -16,10 +16,10 @@ export class MText extends Model<Text> implements IText {
         this._updatedAt = moment(_data.updatedAt);
     }
     getCreatedAt() {
-        return this._createdAt.toLocaleString().slice(0, 10);
+        return this._createdAt.format('MM-DD-hh:mm:ss');
     }
     getUpdatedAt() {
-        return this._updatedAt.toLocaleString().slice(0, 10);
+        return this._updatedAt.format('MM-DD-hh:mm:ss');
     }
     getId() {
         return this._data.id;
