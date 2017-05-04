@@ -23,7 +23,7 @@ export const convertViaResponse = converter => payload$ => {
     return payload$;
 };
 
-export const createIdMethodActionEpic$ = ({method, pending, ok, err, nextAction = ''}: CreateIdMethodActionEpic$Args) =>
+export const createIdMethodActionEpic$ = ({method, pending, ok, err, nextAction}: CreateIdMethodActionEpic$Args) =>
     (action$: ActionsObservable<any>, store): Observable<any> =>
         action$
             .ofType(pending)
@@ -33,10 +33,8 @@ export const createIdMethodActionEpic$ = ({method, pending, ok, err, nextAction 
                     url : [API_URL, id].join('/'),
                     body: JSON.stringify(rest)
                 }))
-            .mergeMap(payload => [
-                {type: ok, payload: payload.response},
-                nextAction
-            ])
-            .map(_ => nextAction)
+            .mergeMap(payload => nextAction
+                ? [{type: ok, payload: payload.response}, nextAction]
+                : [{type: ok, payload: payload.response}])
             .catch(_ => err);
 

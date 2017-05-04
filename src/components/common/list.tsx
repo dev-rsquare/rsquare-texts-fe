@@ -22,11 +22,11 @@ export class TextList extends React.Component<P, S> {
         return (
             <div>
                 <div className="-text -header row">
-                    <strong className="-id col-sm-2 col-md-2">id</strong>
-                    <strong className="-text col-sm-8 col-md-7">text</strong>
-                    <strong className="col-sm-1 col-md-1">created at</strong>
-                    <strong className="col-sm-1 col-md-1">updated at</strong>
-                    <strong className="-modification col-sm-1 col-md-1"></strong>
+                    <strong className="-id col-lg-1 col-md-1">id</strong>
+                    <strong className="-text col-lg-6 col-md-6">text</strong>
+                    <strong className="col-lg-2 col-md-2">created at</strong>
+                    <strong className="col-lg-2 col-md-2">updated at</strong>
+                    <strong className="-modification col-lg-1 col-md-1"></strong>
                 </div>
                 <List type="simple" itemRenderer={this.renderItem} length={items.length}/>
                 <hr/>
@@ -40,19 +40,19 @@ export class TextList extends React.Component<P, S> {
         const id       = textItem.getId();
         return (
             <div className="-text row" key={id} onClick={this.handleRowClicked}>
-                <span className="-id col-sm-2 col-md-2">
+                <span className="-id col-lg-1 col-md-1">
                     {id}
                 </span>
-                <span className="-text col-sm-7 col-md-7">
+                <span className="-text col-lg-6 col-md-6">
                     {textItem.getText()}
                 </span>
-                <span className="-text col-sm-1 col-md-1">
+                <span className="-text col-lg-2 col-md-2">
                     {textItem.getCreatedAt()}
                 </span>
-                <span className="-text col-sm-1 col-md-1">
+                <span className="-text col-lg-2 col-md-2">
                     {textItem.getUpdatedAt()}
                 </span>
-                <button className="-button-bg -gray col-md-1 col-sm-1" onClick={_ => this.props.remove(id)}>
+                <button className="-button-bg -gray col-lg-1 col-md-1" onClick={_ => this.props.remove(id)}>
                     <span className="-button-text">delete</span>
                 </button>
             </div>

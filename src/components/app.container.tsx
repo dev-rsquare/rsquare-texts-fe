@@ -8,7 +8,8 @@ import {bindActionCreators} from 'redux';
 import {getTexts, createText, updateText, deleteText} from '../modules/texts/index';
 import {ExamIntl} from './exam-intl';
 
-interface P {}
+interface P {
+}
 interface C {
     items: IText[];
     fetching: number;
@@ -19,9 +20,10 @@ interface D {
     updateText(id, text: string);
     deleteText(id);
 }
-interface S {}
+interface S {
+}
 
-const state2props = (state: MasterState): C => {
+const state2props    = (state: MasterState): C => {
     const {items, fetching} = state.texts;
     return {items, fetching};
 };
@@ -33,13 +35,14 @@ const dispatch2props = bindActionCreators.bind(null, {
 });
 
 export const App = connect<C, D, P>(state2props, dispatch2props)(
-    class extends React.Component<C&D&P, null> {
+    class extends React.Component<C & D & P, null> {
         private inputCell;
 
         constructor(props) {
             super(props);
             this.handleIdClicked = this.handleIdClicked.bind(this);
         }
+
         render() {
             const {items = [], fetching, deleteText} = this.props;
             return (
@@ -52,18 +55,18 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                         {items.length === 0 && fetching
                             ? `loading...`
                             : <TextList items={items} onClick={this.handleIdClicked} remove={deleteText}/>}
-                        <InputCell className="row" ref={r => this.inputCell = r} items={items} create={this.props.createText}/>
-                    </div>
-                    <hr/>
-                    <div className="container-fluid">
+                        <InputCell className="row" ref={r => this.inputCell = r} items={items} create={this.props.createText} fetching={!!fetching}/>
+                        <hr/>
                         <ExamIntl/>
                     </div>
                 </div>
             );
         }
+
         componentDidMount() {
             this.props.getTexts();
         }
+
         handleIdClicked(id, text) {
             this.inputCell.setData(id, text);
         }
