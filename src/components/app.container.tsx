@@ -52,20 +52,28 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
             const {items = [], fetching, deleteText, messages} = this.props;
             return (
                 <IntlProvider locale={navigator.language} messages={messages}>
-                <div className="App">
+                    <div className="App">
                         <div className="App-header">
                             <img src={logo} className="App-logo" alt="logo"/>
                             <h1>Texts</h1>
                         </div>
                         <div className="container-fluid">
-                            {items.length === 0 && fetching
-                                ? `loading...`
-                                : <TextList items={items} onClick={this.handleIdClicked} remove={deleteText}/>}
-                            <InputCell className="row" ref={r => this.inputCell = r} items={items} create={this.props.createText} fetching={!!fetching}/>
-                            <hr/>
-                            <ExamIntl/>
+                            <div className="col-md-12">
+                                <InputCell className="row mt-20"
+                                           ref={r => this.inputCell = r}
+                                           items={items}
+                                           create={this.props.createText}
+                                           fetching={!!fetching}/>
+                                <hr/>
+                                {items.length === 0 && fetching
+                                    ? `loading...`
+                                    : <TextList items={items} onClick={this.handleIdClicked} remove={deleteText}/>}
+                            </div>
+                            <div className="col-md-12">
+                                <ExamIntl/>
+                            </div>
                         </div>
-                </div>
+                    </div>
                 </IntlProvider>
             );
         }
