@@ -34,20 +34,24 @@ export const ExamIntl = connect<C, D, P>(state2props)(
                 <IntlProvider locale={navigator.language} messages={messages}>
                     <div>
                         <div className="row">
-                            <h1>FormattedMessage</h1>
-                            <div>{items.map(item => <FormattedMessageRow key={item.getId()} {...item.getRawData()}/>)}</div>
+                            <div className="col-md-12">
+                                <h1>FormattedMessage</h1>
+                                <div>{items.map(item => <FormattedMessageRow key={item.getId()} {...item.getRawData()}/>)}</div>
+                            </div>
                         </div>
                         {/*<div className="row">*/}
-                            {/*FormattedRelative*/}
-                            {/*<div>{items.map(item => <FormattedRelativeRow key={item.getId()} {...item.getRawData()}/>)}</div>*/}
+                        {/*FormattedRelative*/}
+                        {/*<div>{items.map(item => <FormattedRelativeRow key={item.getId()} {...item.getRawData()}/>)}</div>*/}
                         {/*</div>*/}
                         {/*<div className="row">*/}
-                            {/*FormattedPlural*/}
-                            {/*<div>{items.map(item => <FormattedPluralRow key={item.getId()} {...item.getRawData()}/>)}</div>*/}
+                        {/*FormattedPlural*/}
+                        {/*<div>{items.map(item => <FormattedPluralRow key={item.getId()} {...item.getRawData()}/>)}</div>*/}
                         {/*</div>*/}
                         <div className="row">
-                            <h1>FormattedFormattedHTMLMessageRow</h1>
-                            <div>{items.map(item => <FormattedFormattedHTMLMessageRow key={item.getId()} {...item.getRawData()}/>)}</div>
+                            <div className="col-md-12">
+                                <h1>FormattedFormattedHTMLMessageRow</h1>
+                                <div>{items.map(item => <FormattedFormattedHTMLMessageRow key={item.getId()} {...item.getRawData()}/>)}</div>
+                            </div>
                         </div>
                     </div>
                 </IntlProvider>
@@ -56,7 +60,7 @@ export const ExamIntl = connect<C, D, P>(state2props)(
     }
 );
 
-const RowFactory           = element => ({id}) =>
+const RowFactory                       = element => ({id}) =>
     <div style={{float: 'left', border: '1px solid green', margin: '0 10px 10px 0'}}>
         <div style={{borderBottom: '1px solid green'}}>
             {id}
@@ -79,8 +83,8 @@ const RowFactory           = element => ({id}) =>
             <code>&lt;/div&gt;</code>
         </div>
     </div>;
-const FormattedMessageRow  = RowFactory(FormattedMessage);
-const FormattedRelativeRow = RowFactory(FormattedRelative);
-const FormattedPluralRow = RowFactory(FormattedPlural);
+const FormattedMessageRow              = RowFactory(FormattedMessage);
+const FormattedRelativeRow             = RowFactory(FormattedRelative);
+const FormattedPluralRow               = RowFactory(FormattedPlural);
 const FormattedFormattedHTMLMessageRow = RowFactory(FormattedHTMLMessage);
 

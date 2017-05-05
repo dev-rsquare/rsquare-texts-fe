@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as logo from './assets/logo.svg';
 import './app.css';
 import {TextList} from './common/list';
-import {InputCell} from './input/cell';
+import {InputCell} from './cells/input-cell';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {getTexts, createText, updateText, deleteText} from '../modules/texts/index';
