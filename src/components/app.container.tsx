@@ -70,7 +70,13 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                                     : <TextList items={items} onClick={this.handleIdClicked} remove={deleteText}/>}
                             </div>
                             <div className="col-md-12">
+                                <h1>react-intl</h1>
                                 <ExamIntl/>
+                            </div>
+                            <div className="col-md-12">
+                                <h1>with html</h1>
+                                <div data-text-id="date_test"/>
+                                <div data-text-id="image_tag"/>
                             </div>
                         </div>
                     </div>
@@ -80,6 +86,7 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
 
         componentDidMount() {
             this.props.getTexts();
+            console.log(document.querySelectorAll('div[data-string-id]'));
         }
 
         handleIdClicked(id, text) {
