@@ -22,6 +22,10 @@ export const convertViaResponse = converter => payload$ => {
     payload$.response.items = payload$.response.items.map(converter);
     return payload$;
 };
+export const sortViaResponse = property => payload$ => {
+    payload$.response.items.sort((prev, curr) => curr[property] - prev[property]);
+    return payload$;
+};
 
 export const createIdMethodActionEpic$ = ({method, pending, ok, err, nextAction}: CreateIdMethodActionEpic$Args) =>
     (action$: ActionsObservable<any>, store): Observable<any> =>

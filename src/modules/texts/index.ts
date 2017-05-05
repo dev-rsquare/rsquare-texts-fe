@@ -1,5 +1,5 @@
 import {combineEpics} from 'redux-observable';
-import {convertModel, convertViaResponse, createIdMethodActionEpic$, pendingOkErr} from '../common/index';
+import {convertModel, convertViaResponse, createIdMethodActionEpic$, pendingOkErr, sortViaResponse} from '../common/index';
 import {Observable} from 'rxjs';
 import {API_URL} from '../../constants';
 import {MText} from '../../models/index';
@@ -19,11 +19,13 @@ export const deleteText = (id) => ({type: PEND_DELETE_TEXT, payload: {id}});
 
 const convertTextModel = convertModel(MText);
 const convertTextModelViaRespons = convertViaResponse(convertTextModel);
+const sortViaUpdatedAt = sortViaResponse('updatedAt');
 
 const texts$ = (action$, store) =>
     action$
         .ofType(PEND_GET_TEXTS)
         .flatMap(_ => Observable.ajax(API_URL))
+        .map(sortViaUpdatedAt)
         .map(convertTextModelViaRespons)
         .mergeMap(payload => [
             {type: OK_GET_TEXTS, payload: payload.response},
@@ -39,7 +41,6 @@ const intl$         = (action$, store) =>
                 return result;
             }, {}))
         .map(payload => ({type: CREATED_INTL, payload}));
-
 const createText$ = createIdMethodActionEpic$({
     method:     'post',
     pending:    PEND_CREATE_TEXT,

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as List from 'react-list';
+import {FormattedRelative} from 'react-intl';
 
 interface P {
     items: IText[];
@@ -39,14 +40,19 @@ export class TextList extends React.Component<P, S> {
         const {items}  = this.props;
         const textItem = items[index];
         const id       = textItem.getId();
+        const {createdAt, updatedAt} = textItem.getRawData();
 
         return (
             <div className="-text row" key={id} onClick={this.handleRowClicked}>
                 <span className="-id col-lg-2 col-md-2">{id}</span>
                 <span className="-text col-lg-6 col-md-6">{textItem.getText()}</span>
                 <div className="row col-md-3">
-                    <span className="-text col-lg-6 col-md-6">{textItem.getCreatedAt()}</span>
-                    <span className="-text col-lg-6 col-md-6">{textItem.getUpdatedAt()}</span>
+                    <span className="-text col-lg-6 col-md-6">
+                        <FormattedRelative value={createdAt}/>
+                    </span>
+                    <span className="-text col-lg-6 col-md-6">
+                        <FormattedRelative value={updatedAt}/>
+                    </span>
                 </div>
                 <button className="-button-bg -gray col-lg-1 col-md-1" onClick={_ => this.props.remove(id)}>
                     <span className="-button-text">delete</span>
