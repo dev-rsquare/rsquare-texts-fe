@@ -8,20 +8,18 @@ const [PEND_GET_TEXTS, OK_GET_TEXTS, ERR_GET_TEXTS]       = pendingOkErr('GET_TE
 const [PEND_CREATE_TEXT, OK_CREATE_TEXT, ERR_CREATE_TEXT] = pendingOkErr('CREATE_TEXT');
 const [PEND_UPDATE_TEXT, OK_UPDATE_TEXT, ERR_UPDATE_TEXT] = pendingOkErr('UPDATE_TEXT');
 const [PEND_DELETE_TEXT, OK_DELETE_TEXT, ERR_DELETE_TEXT] = pendingOkErr('DELETE_TEXT');
-
-const [CREATE_INTL, CREATED_INTL]        = ['CREATE_INTL', 'CREATED_INTL'];
-const [EXTEND_UI_DATE, EXTENDED_UI_DATE] = ['EXTEND_UI_DATE', 'EXTENDED_UI_DATE'];
+const [CREATE_INTL, CREATED_INTL]                         = ['CREATE_INTL', 'CREATED_INTL'];
 
 export const getTexts   = () => ({type: PEND_GET_TEXTS});
 export const createText = (id, text) => ({type: PEND_CREATE_TEXT, payload: {id, text}});
 export const updateText = (id, text) => ({type: PEND_UPDATE_TEXT, payload: {id, text}});
 export const deleteText = (id) => ({type: PEND_DELETE_TEXT, payload: {id}});
 
-const convertTextModel = convertModel(MText);
+const convertTextModel           = convertModel(MText);
 const convertTextModelViaRespons = convertViaResponse(convertTextModel);
-const sortViaUpdatedAt = sortViaResponse('updatedAt');
+const sortViaUpdatedAt           = sortViaResponse('updatedAt');
 
-const texts$ = (action$, store) =>
+const texts$      = (action$, store) =>
     action$
         .ofType(PEND_GET_TEXTS)
         .flatMap(_ => Observable.ajax(getDataSource()))
@@ -32,7 +30,7 @@ const texts$ = (action$, store) =>
             {type: CREATE_INTL, payload: payload.response}
         ])
         .catch(_ => ERR_GET_TEXTS);
-const intl$         = (action$, store) =>
+const intl$       = (action$, store) =>
     action$
         .ofType(CREATE_INTL)
         .map(response =>

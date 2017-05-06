@@ -9,6 +9,8 @@ import {getTexts, createText, updateText, deleteText} from '../modules/texts/ind
 import {ExamIntl} from './exam-intl';
 import {addLocaleData, IntlProvider} from 'react-intl';
 import * as ko from 'react-intl/locale-data/ko'
+import {getDataSource} from '../env';
+import {ExamHtml} from './exam-html';
 
 addLocaleData(ko);
 
@@ -26,6 +28,8 @@ interface D {
     deleteText(id);
 }
 interface S {
+    intl: boolean;
+    html: boolean;
 }
 
 const state2props    = (state: MasterState): C => {
@@ -40,22 +44,42 @@ const dispatch2props = bindActionCreators.bind(null, {
 });
 
 export const App = connect<C, D, P>(state2props, dispatch2props)(
-    class extends React.Component<C & D & P, null> {
+    class extends React.Component<C&D&P, S> {
+        state = {intl: false, html: true};
+
+        private toggleExamIntl;
+        private toggleExamHtml;
         private inputCell;
 
         constructor(props) {
             super(props);
             this.handleIdClicked = this.handleIdClicked.bind(this);
+            this.toggleExamIntl = this.toggle.bind(this, 'intl');
+            this.toggleExamHtml = this.toggle.bind(this, 'html');
         }
 
         render() {
             const {items = [], fetching, deleteText, messages} = this.props;
+            const {intl, html} = this.state;
+            
             return (
                 <IntlProvider locale={navigator.language} messages={messages}>
                     <div className="App">
                         <div className="App-header">
-                            <img src={logo} className="App-logo" alt="logo"/>
+                            <div>
+                                <img src={logo} className="App-logo" alt="logo"/>
+                            </div>
                             <h1>Texts</h1>
+                            <span>
+                                connected endpoint: <em>{getDataSource()}</em>
+                            </span>
+                            <br/>
+                            <span>
+                                are you designer? check&nbsp;
+                                <a href="http://texts-translator.surge.sh" target="_blank">
+                                    http://texts-translator.surge.sh
+                                </a>
+                            </span>
                         </div>
                         <div className="container-fluid">
                             <div className="col-md-12">
@@ -70,13 +94,16 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                                     : <TextList items={items} onClick={this.handleIdClicked} remove={deleteText}/>}
                             </div>
                             <div className="col-md-12">
-                                <h1>react-intl</h1>
-                                <ExamIntl/>
+                                <h1 onClick={this.toggleExamIntl}>
+                                    <mark>react-intl {this.strShow(intl)}</mark>
+                                </h1>
+                                {intl && <ExamIntl/>}
                             </div>
                             <div className="col-md-12">
-                                <h1>with html</h1>
-                                <div data-text-id="date_test"/>
-                                <div data-text-id="image_tag"/>
+                                <h1 onClick={this.toggleExamHtml}>
+                                    <mark>texts-translator {this.strShow(html)}</mark>
+                                </h1>
+                                {html && <ExamHtml texts={items}/>}
                             </div>
                         </div>
                     </div>
@@ -88,8 +115,16 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
             this.props.getTexts();
         }
 
-        handleIdClicked(id, text) {
+        private handleIdClicked(id, text) {
             this.inputCell.setData(id, text);
+        }
+
+        private toggle(property) {
+            this.setState({[property]: !this.state[property]});
+        }
+
+        private strShow(state: boolean) {
+            return state ? '(show)' : '(hide)';
         }
     }
 );
