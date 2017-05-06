@@ -86,7 +86,6 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
 
         componentDidMount() {
             this.props.getTexts();
-            console.log(document.querySelectorAll('div[data-string-id]'));
         }
 
         handleIdClicked(id, text) {
