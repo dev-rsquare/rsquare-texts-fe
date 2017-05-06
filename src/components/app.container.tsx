@@ -44,7 +44,7 @@ const dispatch2props = bindActionCreators.bind(null, {
 });
 
 export const App = connect<C, D, P>(state2props, dispatch2props)(
-    class extends React.Component<C&D&P, S> {
+    class extends React.Component<C & D & P, S> {
         state = {intl: false, html: true};
 
         private toggleExamIntl;
@@ -54,14 +54,14 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
         constructor(props) {
             super(props);
             this.handleIdClicked = this.handleIdClicked.bind(this);
-            this.toggleExamIntl = this.toggle.bind(this, 'intl');
-            this.toggleExamHtml = this.toggle.bind(this, 'html');
+            this.toggleExamIntl  = this.toggle.bind(this, 'intl');
+            this.toggleExamHtml  = this.toggle.bind(this, 'html');
         }
 
         render() {
             const {items = [], fetching, deleteText, messages} = this.props;
-            const {intl, html} = this.state;
-            
+            const {intl, html}                                 = this.state;
+
             return (
                 <IntlProvider locale={navigator.language} messages={messages}>
                     <div className="App">
@@ -70,15 +70,19 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                                 <img src={logo} className="App-logo" alt="logo"/>
                             </div>
                             <h1>Texts</h1>
+                            <span>connected endpoint: <em>{getDataSource()}</em></span>
+                            <br/>
                             <span>
-                                connected endpoint: <em>{getDataSource()}</em>
+                                Do you want to change endpoint?
+                                <em>https://texts.surge.sh?endpoint=[YOUR_ENDPOINT]</em>
                             </span>
                             <br/>
                             <span>
-                                are you designer? check&nbsp;
-                                <a href="http://texts-translator.surge.sh" target="_blank">
-                                    http://texts-translator.surge.sh
-                                </a>
+                                Are you designer?
+                                <em>
+                                    check&nbsp;
+                                    <a href="http://texts-translator.surge.sh" target="_blank">http://texts-translator.surge.sh</a>
+                                </em>
                             </span>
                         </div>
                         <div className="container-fluid">
