@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import {IntlProvider, addLocaleData} from 'react-intl';
 import {App} from './app.container';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';

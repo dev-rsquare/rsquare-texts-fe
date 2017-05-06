@@ -1,7 +1,7 @@
 import {combineEpics} from 'redux-observable';
 import {convertModel, convertViaResponse, createIdMethodActionEpic$, pendingOkErr, sortViaResponse} from '../common/index';
 import {Observable} from 'rxjs';
-import {API_URL} from '../../constants';
+import {getDataSource} from '../../env';
 import {MText} from '../../models/index';
 
 const [PEND_GET_TEXTS, OK_GET_TEXTS, ERR_GET_TEXTS]       = pendingOkErr('GET_TEXTS');
@@ -24,7 +24,7 @@ const sortViaUpdatedAt = sortViaResponse('updatedAt');
 const texts$ = (action$, store) =>
     action$
         .ofType(PEND_GET_TEXTS)
-        .flatMap(_ => Observable.ajax(API_URL))
+        .flatMap(_ => Observable.ajax(getDataSource()))
         .map(sortViaUpdatedAt)
         .map(convertTextModelViaRespons)
         .mergeMap(payload => [

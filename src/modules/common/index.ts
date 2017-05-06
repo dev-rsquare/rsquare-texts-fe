@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs/Observable';
-import {API_URL} from '../../constants';
+import {getDataSource} from '../../env';
 import {ActionsObservable} from 'redux-observable';
 import {Action} from 'redux';
 
@@ -34,7 +34,7 @@ export const createIdMethodActionEpic$ = ({method, pending, ok, err, nextAction}
             .flatMap(({payload: {id, ...rest}}) =>
                 Observable.ajax({
                     method,
-                    url : [API_URL, id].join('/'),
+                    url : [getDataSource(), id].join('/'),
                     body: JSON.stringify(rest)
                 }))
             .mergeMap(payload => nextAction
