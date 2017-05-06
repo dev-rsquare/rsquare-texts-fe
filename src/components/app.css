@@ -14,6 +14,13 @@
   color: white;
 }
 
+.App-footer {
+  background-color: #222;
+  height: 30px;
+  padding-top: 5px;
+  color: white;
+}
+
 .App-intro {
   font-size: large;
 }

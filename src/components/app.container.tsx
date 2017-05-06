@@ -110,6 +110,10 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                                 {html && <ExamHtml texts={items}/>}
                             </div>
                         </div>
+                        <div className="App-footer">
+                            author: <a href="mailto:deptno@gmail.com">deptno@gmail.com</a>
+                            (<a href="http://blog.bglee.me" target="_blank">bglee.me</a>)
+                        </div>
                     </div>
                 </IntlProvider>
             );
