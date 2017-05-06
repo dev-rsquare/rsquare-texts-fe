@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as logo from './assets/logo.svg';
+import * as github from './assets/github.png';
 import './app.css';
 import {TextList} from './common/list';
 import {InputCell} from './cells/input-cell';
@@ -65,9 +66,7 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                 <IntlProvider locale={navigator.language} messages={messages}>
                     <div className="App">
                         <div className="App-header">
-                            <div>
-                                <img src={logo} className="App-logo" alt="logo"/>
-                            </div>
+                            <img src={logo} className="App-logo" alt="logo"/>
                             <h1>Texts</h1>
                             <span>connected endpoint: <em>{getDataSource()}</em></span>
                             <br/>
@@ -85,6 +84,9 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                                     </a>
                                 </em>
                             </span>
+                            <a href="https://github.com/deptno/texts-fe" target="_blank">
+                                <img className="-github" src={github} alt="github"/>
+                            </a>
                         </div>
                         <div className="container-fluid">
                             <div className="col-md-12">
@@ -92,6 +94,7 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                                            ref={r => this.inputCell = r}
                                            items={items}
                                            create={this.props.createText}
+                                           update={this.props.updateText}
                                            deploy={canUpdate && this.props.deployJson}
                                            fetching={!!fetching}/>
                                 <hr/>

@@ -3,6 +3,7 @@ import * as React from 'react';
 interface P {
     className?: string;
     create(id, text): Promise<boolean>;
+    update(id, text): Promise<boolean>;
     deploy(): Promise<boolean>;
     items: IText[];
     fetching: boolean;
@@ -49,7 +50,12 @@ export class InputCell extends React.Component<P, S> {
     submit(e) {
         e.preventDefault();
         this.text.style.height = `30px`;
-        this.props.create(this.id.value, this.text.value);
+
+        if (this.state.match) {
+            this.props.update(this.id.value, this.text.value);
+        } else {
+            this.props.create(this.id.value, this.text.value);
+        }
     }
 
     handleChangeId() {
