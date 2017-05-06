@@ -5,7 +5,7 @@ import {TextList} from './common/list';
 import {InputCell} from './cells/input-cell';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {getTexts, createText, updateText, deleteText} from '../modules/texts/index';
+import {getTexts, createText, updateText, deleteText, deployJson} from '../modules/texts/index';
 import {ExamIntl} from './exam-intl';
 import {addLocaleData, IntlProvider} from 'react-intl';
 import * as ko from 'react-intl/locale-data/ko'
@@ -16,16 +16,14 @@ addLocaleData(ko);
 
 interface P {
 }
-interface C {
-    items: IText[];
-    fetching: number;
-    messages: any;
+interface C extends Partial<TextsState> {
 }
 interface D {
     getTexts();
     createText(id, text: string);
     updateText(id, text: string);
     deleteText(id);
+    deployJson();
 }
 interface S {
     intl: boolean;
@@ -33,14 +31,15 @@ interface S {
 }
 
 const state2props    = (state: MasterState): C => {
-    const {items, fetching, messages} = state.texts;
-    return {items, fetching, messages};
+    const {items, fetching, messages, canUpdate} = state.texts;
+    return {items, fetching, messages, canUpdate};
 };
 const dispatch2props = bindActionCreators.bind(null, {
     getTexts,
     createText,
     updateText,
-    deleteText
+    deleteText,
+    deployJson
 });
 
 export const App = connect<C, D, P>(state2props, dispatch2props)(
@@ -59,7 +58,7 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
         }
 
         render() {
-            const {items = [], fetching, deleteText, messages} = this.props;
+            const {items = [], fetching, deleteText, messages, canUpdate} = this.props;
             const {intl, html}                                 = this.state;
 
             return (
@@ -81,7 +80,9 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                                 Are you designer?
                                 <em>
                                     check&nbsp;
-                                    <a href="http://texts-translator.surge.sh" target="_blank">http://texts-translator.surge.sh</a>
+                                    <a href="http://texts-translator.surge.sh" target="_blank">
+                                        http://texts-translator.surge.sh
+                                    </a>
                                 </em>
                             </span>
                         </div>
@@ -91,6 +92,7 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                                            ref={r => this.inputCell = r}
                                            items={items}
                                            create={this.props.createText}
+                                           deploy={canUpdate && this.props.deployJson}
                                            fetching={!!fetching}/>
                                 <hr/>
                                 {items.length === 0 && fetching

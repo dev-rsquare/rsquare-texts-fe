@@ -25,6 +25,7 @@ interface MasterState {
 }
 interface TextsState {
     items: IText[];
+    canUpdate: boolean;
     count: number;
     messages: any;
     fetching: number;

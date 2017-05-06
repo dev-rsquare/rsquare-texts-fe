@@ -11,11 +11,11 @@ export const pendingOkErr = actionName => ([
     [PREFIX.ERR, actionName].join('_')
 ]);
 interface CreateIdMethodActionEpic$Args {
-    method: 'get'|'post'|'put'|'delete',
-    pending: string,
-    ok: string,
-    err: string,
-    nextAction?: Action
+    method: 'get'|'post'|'put'|'delete';
+    pending: string;
+    ok: string;
+    err: string;
+    nextActions?: Action[];
 }
 export const convertModel = model => item => new model(item);
 export const convertViaResponse = converter => payload$ => {
@@ -27,7 +27,7 @@ export const sortViaResponse = property => payload$ => {
     return payload$;
 };
 
-export const createIdMethodActionEpic$ = ({method, pending, ok, err, nextAction}: CreateIdMethodActionEpic$Args) =>
+export const createIdMethodActionEpic$ = ({method, pending, ok, err, nextActions = []}: CreateIdMethodActionEpic$Args) =>
     (action$: ActionsObservable<any>, store): Observable<any> =>
         action$
             .ofType(pending)
@@ -37,8 +37,6 @@ export const createIdMethodActionEpic$ = ({method, pending, ok, err, nextAction}
                     url : [getDataSource(), id].join('/'),
                     body: JSON.stringify(rest)
                 }))
-            .mergeMap(payload => nextAction
-                ? [{type: ok, payload: payload.response}, nextAction]
-                : [{type: ok, payload: payload.response}])
+            .mergeMap(payload => [{type: ok, payload: payload.response}, ...nextActions])
             .catch(_ => err);
 
