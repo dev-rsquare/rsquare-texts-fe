@@ -31,12 +31,12 @@ export class InputCell extends React.Component<P, S> {
         
         return (
             <form className={className} onSubmit={this.submit}>
-                <input className="form-control -id col-md-2" ref={r => this.id = r} placeholder="STRING_ID" onChange={this.handleChangeId}/>
-                <textarea className="form-control -text col-md-8" ref={r => this.text = r} placeholder="TEXT" onChange={this.handleChangeText}/>
-                <button className="-button-bg col-md-1" type="submit" disabled={fetching}>
+                <input className="form-control -id col-lg-2 col-12" ref={r => this.id = r} placeholder="STRING_ID" onChange={this.handleChangeId}/>
+                <textarea className="form-control -text col-lg-8 col-12" ref={r => this.text = r} placeholder="TEXT" onChange={this.handleChangeText}/>
+                <button className="-button-bg col-lg-1 col-12" type="submit" disabled={fetching}>
                     <span className="-button-text">{match ? 'update' : 'create'}</span>
                 </button>
-                <button className="-button-bg col-md-1" onClick={deploy} disabled={!deploy}>
+                <button className="-button-bg col-lg-1 col-12" onClick={deploy} disabled={!deploy}>
                     <span className="-button-text">deploy</span>
                 </button>
             </form>

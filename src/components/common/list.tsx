@@ -31,11 +31,11 @@ export class TextList extends React.Component<P, S> {
         return (
             <div>
                 <div className="-text -header row">
-                    <strong className="-id col-lg-2 col-md-2">id</strong>
-                    <strong className="-text col-lg-6 col-md-6">text</strong>
-                    <div className="row col-md-3">
-                        <strong className="col-lg-6 col-md-6" onClick={this.handleToggleRelativeCreatedAt}>created at</strong>
-                        <strong className="col-lg-6 col-md-6" onClick={this.handleToggleRelativeUpdatedAt}>updated at</strong>
+                    <strong className="-id col-lg-2 col-md-3 col-10">ID</strong>
+                    <strong className="-text col-lg-6 col-md-7 col-6 clearfix hidden-sm-down">text</strong>
+                    <div className="row col-3 clearfix hidden-md-down">
+                        <strong className="col-lg-6 col-6" onClick={this.handleToggleRelativeCreatedAt}>created at</strong>
+                        <strong className="col-lg-6 col-6" onClick={this.handleToggleRelativeUpdatedAt}>updated at</strong>
                     </div>
                 </div>
                 <List type="simple" itemRenderer={this.renderItem} length={items.length}/>
@@ -53,17 +53,17 @@ export class TextList extends React.Component<P, S> {
 
         return (
             <div className="-text row" key={id} onClick={this.handleRowClicked}>
-                <span className="-id col-lg-2 col-md-2">{id}</span>
-                <span className="-text col-lg-6 col-md-6">{item.getText()}</span>
-                <div className="row col-md-3">
-                    <span className="-text col-lg-6 col-md-6">
+                <span className="-id col-lg-2 col-9 col-md-3 ">{id}</span>
+                <span className="-text col-lg-6 col-md-7 clearfix hidden-sm-down">{item.getText()}</span>
+                <div className="row col-3 clearfix hidden-md-down">
+                    <span className="-text col-lg-6 col-6">
                         {relativeCreatedAt ? <FormattedRelative value={createdAt}/> : item.getCreatedAt()}
                     </span>
-                    <span className="-text col-lg-6 col-md-6">
+                    <span className="-text col-lg-6 col-6">
                         {relativeUpdatedAt ? <FormattedRelative value={updatedAt}/> : item.getUpdatedAt()}
                     </span>
                 </div>
-                <button className="-button-bg -gray col-lg-1 col-md-1" onClick={_ => this.props.remove(id)}>
+                <button className="-button-bg -gray col-lg-1 col-md-2 col-3" onClick={_ => this.props.remove(id)}>
                     <span className="-button-text">delete</span>
                 </button>
             </div>
