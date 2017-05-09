@@ -2,11 +2,12 @@ import * as React from 'react';
 import './setup';
 import {render} from 'react-dom';
 import {Wrapper} from './components/wrapper.container';
-import {Provider} from 'react-redux';
+import {ApolloProvider} from 'react-apollo';
 import {store} from './modules/store';
+import {client} from './modules/apollo-client';
 
 render((
-    <Provider store={store}>
+    <ApolloProvider client={client} store={store}>
         <Wrapper/>
-    </Provider>
+    </ApolloProvider>
 ), document.getElementById('root'));

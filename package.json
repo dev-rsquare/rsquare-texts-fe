@@ -12,6 +12,7 @@
     "classnames": "^2.2.5",
     "moment": "^2.18.1",
     "react": "^15.5.4",
+    "react-apollo": "^1.2.0",
     "react-dom": "^15.5.4",
     "react-intl": "^2.2.3",
     "react-list": "^0.8.5",
@@ -45,6 +46,6 @@
     ]
   },
   "texts": {
-    "endpoint": "https://1r8n4u8sqc.execute-api.ap-northeast-2.amazonaws.com/dev/texts"
+    "endpoint": "https://api.graph.cool/simple/v1/cj2h6xd611xrp0174pjcmnmvh"
   }
 }

@@ -12,6 +12,7 @@ import {addLocaleData, IntlProvider} from 'react-intl';
 import * as ko from 'react-intl/locale-data/ko'
 import {getDataSource} from '../env';
 import {ExamHtml} from './exam-html';
+import {gql, graphql, compose} from 'react-apollo';
 
 addLocaleData(ko);
 
@@ -25,6 +26,8 @@ interface D {
     updateText(id, text: string);
     deleteText(id);
     deployJson();
+
+    testQuery();
 }
 interface S {
     intl: boolean;
@@ -43,7 +46,19 @@ const dispatch2props = bindActionCreators.bind(null, {
     deployJson
 });
 
-export const App = connect<C, D, P>(state2props, dispatch2props)(
+const queryAllTexts = gql`
+{
+    texts: allTexts {
+        textId
+        text
+    }
+}
+`;
+
+export const App = compose(
+    graphql(queryAllTexts, {name: 'queryAllTexts'}),
+    connect<C, D, P>(state2props, dispatch2props)
+)(
     class extends React.Component<C & D & P, S> {
         state = {intl: false, html: true};
 
@@ -61,6 +76,7 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
         render() {
             const {items = [], fetching, deleteText, messages, canUpdate} = this.props;
             const {intl, html}                                 = this.state;
+            console.log(this.props.testQuery);
 
             return (
                 <IntlProvider locale={navigator.language} messages={messages}>
@@ -125,7 +141,7 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
         }
 
         componentDidMount() {
-            this.props.getTexts();
+            // this.props.getTexts();
         }
 
         private handleIdClicked(id, text) {
