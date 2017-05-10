@@ -12,7 +12,7 @@ const [PEND_DEPLOY_JSON, OK_DEPLOY_JSON, ERR_DEPLOY_JSON] = pendingOkErr('DEPLOY
 const [CREATE_INTL, CREATED_INTL]                         = ['CREATE_INTL', 'CREATED_INTL'];
 const [CAN_UPDATE, RESET_CAN_UPDATE]                      = ['CAN_UPDATE', 'RESET_CAN_UPDATE'];
 
-const convertTextModel           = convertModel(MText);
+export const convertTextModel    = convertModel(MText);
 const convertTextModelViaRespons = convertViaResponse(convertTextModel);
 const sortViaUpdatedAt           = sortViaResponse('updatedAt');
 
@@ -25,6 +25,17 @@ export const updateText = (id, text) => ({type: PEND_UPDATE_TEXT, payload: {id, 
 export const deleteText = (id) => ({type: PEND_DELETE_TEXT, payload: {id}});
 export const deployJson = () => ({type: PEND_DEPLOY_JSON});
 
+const GQL_ALL_TEXTS = 'GQL_ALL_TEXTS';
+const gqlAllTexts$ = (action$, store) =>
+    action$
+        .ofType(GQL_ALL_TEXTS)
+        .map(sortViaUpdatedAt)
+        .map(convertTextModelViaRespons)
+        .mergeMap(payload => [
+            {type: OK_GET_TEXTS, payload: payload.response},
+            {type: CREATE_INTL, payload: payload.response}
+        ])
+        .catch(_ => ERR_GET_TEXTS);
 const texts$      = (action$, store) =>
     action$
         .ofType(PEND_GET_TEXTS)

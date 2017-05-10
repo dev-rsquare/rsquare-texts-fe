@@ -6,8 +6,9 @@ interface DataWithUI extends ResponseData {
     ui: {createdAt: string, updatedAt: string};
 }
 interface Text extends ResponseData {
-    id: string;
+    textId: string;
     text: string;
+    version: number;
 }
 interface IModel<T> {
     getRawData(): T;

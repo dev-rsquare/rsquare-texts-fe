@@ -22,7 +22,7 @@ export class MText extends Model<Text> implements IText {
         return this._updatedAt.format('MM월DD일 hh:mm:ss');
     }
     getId() {
-        return this._data.id;
+        return this._data.textId;
     }
     getText() {
         return this._data.text;
