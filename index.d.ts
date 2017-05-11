@@ -6,6 +6,7 @@ interface DataWithUI extends ResponseData {
     ui: {createdAt: string, updatedAt: string};
 }
 interface Text extends ResponseData {
+    id: string;
     textId: string;
     text: string;
     version: number;
@@ -15,6 +16,7 @@ interface IModel<T> {
 }
 interface IText extends IModel<Text> {
     getId(): string;
+    getTextId(): string;
     getText(): string;
     getCreatedAt(): string;
     getUpdatedAt(): string;

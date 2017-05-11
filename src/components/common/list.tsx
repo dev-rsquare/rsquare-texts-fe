@@ -6,7 +6,7 @@ type relativeDate = boolean;
 
 interface P {
     items: IText[];
-    onClick(id, text: string);
+    onClick(id, textId, text: string);
     remove(id: string);
 }
 interface S {
@@ -48,12 +48,13 @@ export class TextList extends React.Component<P, S> {
         const {items}                                = this.props;
         const item: IText                            = items[index];
         const id                                     = item.getId();
+        const textId                                 = item.getTextId();
         const {createdAt, updatedAt}                 = item.getRawData();
         const {relativeCreatedAt, relativeUpdatedAt} = this.state;
 
         return (
-            <div className="-text row" key={id} onClick={this.handleRowClicked}>
-                <span className="-id col-lg-2 col-9 col-md-3 ">{id}</span>
+            <div className="-text row" key={id} data-id={id} onClick={this.handleRowClicked}>
+                <span className="-id col-lg-2 col-9 col-md-3 ">{textId}</span>
                 <span className="-text col-lg-6 col-md-7 clearfix hidden-sm-down">{item.getText()}</span>
                 <div className="row col-3 clearfix hidden-md-down">
                     <span className="-text col-lg-6 col-6">
@@ -71,8 +72,8 @@ export class TextList extends React.Component<P, S> {
     }
 
     handleRowClicked(e) {
-        const [id, text] = e.currentTarget.children;
-        this.props.onClick(id.textContent, text.textContent);
+        const text = this.props.items.find(item => item.getId() === e.currentTarget.dataset.id);
+        this.props.onClick(text.getId(), text.getTextId(), text.getText());
     }
 
     handleToggleRelative(property) {

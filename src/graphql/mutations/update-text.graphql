@@ -1,0 +1,7 @@
+mutation TextsMutation($id: ID!, $textId: String!, $text: String!) {
+    updateText(id: $id, textId: $textId, text: $text) {
+        textId
+        text
+        version
+    }
+}

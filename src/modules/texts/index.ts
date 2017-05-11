@@ -52,7 +52,7 @@ const intl$       = (action$, store) =>
         .ofType(CREATE_INTL)
         .map(response =>
             response.payload.items.reduce((result, curr) => {
-                result[curr.getId()] = curr.getText();
+                result[curr.getTextId()] = curr.getText();
                 return result;
             }, {}))
         .map(payload => ({type: CREATED_INTL, payload}));

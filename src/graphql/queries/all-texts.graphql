@@ -1,5 +1,6 @@
 query TextsQuery {
-    texts: allTexts {
+    allTexts {
+        id
         textId
         text
         version

@@ -1,0 +1,7 @@
+mutation TextsMutation($id: ID!) {
+    deleteText(id: $id) {
+        textId
+        text
+        version
+    }
+}
