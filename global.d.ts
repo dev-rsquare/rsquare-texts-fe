@@ -20,3 +20,11 @@ declare module "*.json" {
     };
     export = packageInfo;
 }
+declare module "*.graphql" {
+    const packageInfo: {
+        texts: {
+            endpoint: string;
+        }
+    };
+    export default packageInfo;
+}

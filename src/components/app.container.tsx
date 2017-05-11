@@ -14,6 +14,7 @@ import {gql, graphql, compose} from 'react-apollo';
 import {ExamIntl} from './example/exam-intl';
 import {ExamHtml} from './example/exam-html';
 import {convertTextModel} from '../modules/texts/index';
+import '../graphql';
 
 addLocaleData(ko);
 
@@ -204,8 +205,6 @@ export const App = compose(
 
         private handleDeleteText(...args) {
             console.log('handleDeleteText', ...args);
-
-
         }
     }
 );

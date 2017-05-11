@@ -1,0 +1,9 @@
+query TextsQuery {
+    texts: allTexts {
+        textId
+        text
+        version
+        createdAt
+        updatedAt
+    }
+}
