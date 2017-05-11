@@ -2,9 +2,9 @@ import * as React from 'react';
 
 interface P {
     className?: string;
-    create(textId, text): Promise<boolean>;
-    update(id, textId, text): Promise<boolean>;
-    deploy(): Promise<boolean>;
+    create(textId, text);
+    update(id, textId, text);
+    deploy();
     items: IText[];
     fetching: boolean;
 }

@@ -5,7 +5,6 @@ import './app.css';
 import {TextList} from './common/list';
 import {InputCell} from './cells/input-cell';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 // import {getTexts, createText, updateText, deleteText, deployJson} from '../modules/texts/index';
 import {addLocaleData, IntlProvider} from 'react-intl';
 import * as ko from 'react-intl/locale-data/ko'
@@ -17,6 +16,7 @@ import {convertTextModel} from '../modules/texts/index';
 import {queries} from '../graphql'; import {mutations} from '../graphql/mutations/index';
 import {MText} from "../models/index";
 import {responseToModel} from '../modules/common/index';
+import {GraphQLDataProps} from 'react-apollo/lib/graphql';
 
 addLocaleData(ko);
 
@@ -25,7 +25,7 @@ interface P {
 interface C extends Partial<TextsState> {
 }
 interface D {
-    allTexts: InjectedGraphQLProps<IText[]>,
+    allTexts: GraphQLDataProps & {data: IText[]},
     createText(args: GraphqlVariables<Text>);
     updateText(args: GraphqlVariables<Text>);
     deleteText(args: GraphqlVariables<Text>);
@@ -138,10 +138,6 @@ class _App extends React.Component<Props, S> {
         );
     }
 
-    componentDidMount() {
-        // this.props.getTexts();
-    }
-
     private handleIdClicked(id, textId, text) {
         this.inputCell.setData(id, textId, text);
     }
@@ -154,16 +150,22 @@ class _App extends React.Component<Props, S> {
         return state ? '(show)' : '(hide)';
     }
 
+    private async refetchTexts() {
+        return this.props.allTexts.refetch();
+    }
     private async handleCreateText(textId, text) {
-        return this.props.createText({variables: {textId, text}});
+        const response = await this.props.createText({variables: {textId, text}});
+        return response.data ? this.refetchTexts() : false;
     }
 
-    private handleUpdateText(id, textId, text) {
-        return this.props.updateText({variables: {id, textId, text}});
+    private async handleUpdateText(id, textId, text) {
+        const response = await this.props.updateText({variables: {id, textId, text}});
+        return response.data ? this.refetchTexts() : false;
     }
 
-    private handleDeleteText(id) {
-        return this.props.deleteText({variables: {id}});
+    private async handleDeleteText(id) {
+        const response = await this.props.deleteText({variables: {id}});
+        return response.data ? this.refetchTexts() : false;
     }
 }
 
