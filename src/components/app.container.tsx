@@ -5,7 +5,6 @@ import './app.css';
 import {TextList} from './common/list';
 import {InputCell} from './cells/input-cell';
 import {connect} from 'react-redux';
-// import {getTexts, createText, updateText, deleteText, deployJson} from '../modules/texts/index';
 import {addLocaleData, IntlProvider} from 'react-intl';
 import * as ko from 'react-intl/locale-data/ko';
 import {getDataSource} from '../env';
@@ -15,8 +14,8 @@ import {mutations} from '../graphql/mutations/index';
 import {MText} from '../models/index';
 import {responseToModel} from '../modules/common/index';
 import {GraphQLDataProps} from 'react-apollo/lib/graphql';
-import {ExamIntl} from './example/exam-intl';
-import {ExamHtml} from './example/exam-html';
+// import {ExamIntl} from './example/exam-intl';
+// import {ExamHtml} from './example/exam-html';
 
 addLocaleData(ko);
 
@@ -29,9 +28,6 @@ interface D {
     createText(args: GraphqlVariables<Text>);
     updateText(args: GraphqlVariables<Text>);
     deleteText(args: GraphqlVariables<Text>);
-    deployJson();
-
-    testQuery();
 }
 interface S {
     intl: boolean;
@@ -107,7 +103,6 @@ class _App extends React.Component<Props, S> {
                                        items={texts}
                                        create={this.handleCreateText}
                                        update={this.handleUpdateText}
-                                       deploy={canUpdate && this.props.deployJson}
                                        fetching={!!fetching}/>
                             <hr/>
                             {texts.length === 0 && fetching
@@ -115,7 +110,7 @@ class _App extends React.Component<Props, S> {
                                 :
                                 <TextList items={texts} onClick={this.handleIdClicked} remove={this.handleDeleteText}/>}
                         </div>
-                        <div className="col-md-12">
+                        {/*<div className="col-md-12">
                             <h1 onClick={this.toggleExamIntl}>
                                 <mark>react-intl {this.strShow(intl)}</mark>
                             </h1>
@@ -126,7 +121,7 @@ class _App extends React.Component<Props, S> {
                                 <mark>texts-translator {this.strShow(html)}</mark>
                             </h1>
                             {html && <ExamHtml texts={texts}/>}
-                        </div>
+                        </div>*/}
                     </div>
                     <div className="App-footer">
                         author: <a href="mailto:deptno@gmail.com">deptno@gmail.com</a>

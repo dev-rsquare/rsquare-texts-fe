@@ -8,7 +8,7 @@ export class ExamHtml extends React.Component<P, null> {
         return (
             <div>
                 {this.props.texts.map(text =>
-                    <div key={text.getId()} data-text-id={text.getId()}>{text.getTextId()}</div>
+                    <div key={text.getId()} data-text-id={text.getTextId()}>{text.getTextId()}</div>
                 )}
             </div>
         );

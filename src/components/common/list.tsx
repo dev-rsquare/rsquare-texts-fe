@@ -32,7 +32,7 @@ export class TextList extends React.Component<P, S> {
             <div>
                 <div className="-text -header row">
                     <strong className="-id col-lg-2 col-md-3 col-10">ID</strong>
-                    <strong className="-text col-lg-6 col-md-7 col-6 clearfix hidden-sm-down">text</strong>
+                    <strong className="-text col-lg-6 col-md-8 col-6 clearfix hidden-sm-down">text</strong>
                     <div className="row col-3 clearfix hidden-md-down">
                         <strong className="col-lg-6 col-6" onClick={this.handleToggleRelativeCreatedAt}>created at</strong>
                         <strong className="col-lg-6 col-6" onClick={this.handleToggleRelativeUpdatedAt}>updated at</strong>
