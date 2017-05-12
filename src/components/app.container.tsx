@@ -7,16 +7,16 @@ import {InputCell} from './cells/input-cell';
 import {connect} from 'react-redux';
 // import {getTexts, createText, updateText, deleteText, deployJson} from '../modules/texts/index';
 import {addLocaleData, IntlProvider} from 'react-intl';
-import * as ko from 'react-intl/locale-data/ko'
+import * as ko from 'react-intl/locale-data/ko';
 import {getDataSource} from '../env';
-import {gql, graphql, compose, InjectedGraphQLProps} from 'react-apollo';
-import {ExamIntl} from './example/exam-intl';
-import {ExamHtml} from './example/exam-html';
-import {convertTextModel} from '../modules/texts/index';
-import {queries} from '../graphql'; import {mutations} from '../graphql/mutations/index';
-import {MText} from "../models/index";
+import {graphql} from 'react-apollo';
+import {queries} from '../graphql';
+import {mutations} from '../graphql/mutations/index';
+import {MText} from '../models/index';
 import {responseToModel} from '../modules/common/index';
 import {GraphQLDataProps} from 'react-apollo/lib/graphql';
+import {ExamIntl} from './example/exam-intl';
+import {ExamHtml} from './example/exam-html';
 
 addLocaleData(ko);
 
@@ -25,7 +25,7 @@ interface P {
 interface C extends Partial<TextsState> {
 }
 interface D {
-    allTexts: GraphQLDataProps & {data: IText[]},
+    allTexts: GraphQLDataProps & { data: IText[] },
     createText(args: GraphqlVariables<Text>);
     updateText(args: GraphqlVariables<Text>);
     deleteText(args: GraphqlVariables<Text>);
@@ -37,7 +37,7 @@ interface S {
     intl: boolean;
     html: boolean;
 }
-type Props = C&D&P;
+type Props = C & D & P;
 
 const state2props = (state: MasterState): C => {
     // const {items, fetching, messages, canUpdate} = state.texts;
@@ -62,17 +62,17 @@ class _App extends React.Component<Props, S> {
 
     constructor(props) {
         super(props);
-        this.handleIdClicked  = this.handleIdClicked.bind(this);
+        this.handleIdClicked = this.handleIdClicked.bind(this);
         this.handleCreateText = this.handleCreateText.bind(this);
         this.handleUpdateText = this.handleUpdateText.bind(this);
         this.handleDeleteText = this.handleDeleteText.bind(this);
-        this.toggleExamIntl   = this.toggle.bind(this, 'intl');
-        this.toggleExamHtml   = this.toggle.bind(this, 'html');
+        this.toggleExamIntl = this.toggle.bind(this, 'intl');
+        this.toggleExamHtml = this.toggle.bind(this, 'html');
     }
 
     render() {
         const {allTexts: {data: texts = []} = {}, fetching, messages, canUpdate} = this.props;
-        const {intl, html}                                            = this.state;
+        const {intl, html} = this.state;
 
         return (
             <IntlProvider locale={navigator.language} messages={messages}>
@@ -112,22 +112,21 @@ class _App extends React.Component<Props, S> {
                             <hr/>
                             {texts.length === 0 && fetching
                                 ? `loading...`
-                                : <TextList items={texts} onClick={this.handleIdClicked} remove={this.handleDeleteText}/>}
+                                :
+                                <TextList items={texts} onClick={this.handleIdClicked} remove={this.handleDeleteText}/>}
                         </div>
-                        {/*
-                         <div className="col-md-12">
-                         <h1 onClick={this.toggleExamIntl}>
-                         <mark>react-intl {this.strShow(intl)}</mark>
-                         </h1>
-                         {intl && <ExamIntl/>}
-                         </div>
-                         <div className="col-md-12">
-                         <h1 onClick={this.toggleExamHtml}>
-                         <mark>texts-translator {this.strShow(html)}</mark>
-                         </h1>
-                         {html && <ExamHtml texts={texts}/>}
-                         </div>
-                         */}
+                        <div className="col-md-12">
+                            <h1 onClick={this.toggleExamIntl}>
+                                <mark>react-intl {this.strShow(intl)}</mark>
+                            </h1>
+                            {intl && <ExamIntl/>}
+                        </div>
+                        <div className="col-md-12">
+                            <h1 onClick={this.toggleExamHtml}>
+                                <mark>texts-translator {this.strShow(html)}</mark>
+                            </h1>
+                            {html && <ExamHtml texts={texts}/>}
+                        </div>
                     </div>
                     <div className="App-footer">
                         author: <a href="mailto:deptno@gmail.com">deptno@gmail.com</a>
@@ -153,6 +152,7 @@ class _App extends React.Component<Props, S> {
     private async refetchTexts() {
         return this.props.allTexts.refetch();
     }
+
     private async handleCreateText(textId, text) {
         const response = await this.props.createText({variables: {textId, text}});
         return response.data ? this.refetchTexts() : false;
