@@ -10,7 +10,6 @@
     "@types/react-redux": "^4.4.40",
     "@types/redux-form": "^6.6.2",
     "classnames": "^2.2.5",
-    "graphql-tag": "^2.0.0",
     "moment": "^2.18.1",
     "react": "^15.5.4",
     "react-apollo": "^1.2.0",
