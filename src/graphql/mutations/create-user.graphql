@@ -1,0 +1,5 @@
+mutation ($idToken: String!, $nickname: String!, $emailAddress: String!, $picture: String) {
+    createUser(authProvider: {auth0: {idToken: $idToken}}, nickname: $nickname, emailAddress: $emailAddress, picture: $picture) {
+        id
+    }
+}
