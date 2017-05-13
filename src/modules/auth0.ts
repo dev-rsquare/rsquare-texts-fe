@@ -5,7 +5,7 @@ export default class Auth0 {
     constructor(clientId, domain, onAuthentication) {
         this.lock = new Auth0Lock(clientId, domain, {
             auth: {
-                redirectUrl: 'http://localhost:3000/#/auth',
+                redirectUrl: 'https://texts.surge.sh',
                 responseType: 'token'
             }
         });
