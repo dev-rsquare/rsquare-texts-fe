@@ -77,3 +77,8 @@ body {
     right: 0px;
     margin: 10px 10px 0 0;
 }
+
+.-checkbox {
+    display: inline-block;
+    line-height: 30px;
+}

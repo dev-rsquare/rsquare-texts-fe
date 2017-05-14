@@ -15,6 +15,7 @@ export class InputCell extends React.Component<P, S> {
     private id;
     private textId;
     private text;
+    private public;
 
     state = {match: false};
 
@@ -32,10 +33,14 @@ export class InputCell extends React.Component<P, S> {
         return (
             <form className={className} onSubmit={this.submit}>
                 <input className="form-control -id col-lg-2 col-12" ref={r => this.textId = r} placeholder="STRING_ID" onChange={this.handleChangeId}/>
-                <textarea className="form-control -text col-lg-9 col-12" ref={r => this.text = r} placeholder="TEXT" onChange={this.handleChangeText}/>
+                <textarea className="form-control -text col-lg-8 col-12" ref={r => this.text = r} placeholder="TEXT" onChange={this.handleChangeText}/>
                 <button className="-button-bg col-lg-1 col-12" type="submit" disabled={fetching}>
                     <span className="-button-text">{match ? 'update' : 'create'}</span>
                 </button>
+                <div className="col-lg-1 col-12">
+                    <input type="checkbox" ref={r => this.public = r} />
+                    <span className="-checkbox">&nbsp;public</span>
+                </div>
             </form>
         );
     }
@@ -48,6 +53,7 @@ export class InputCell extends React.Component<P, S> {
         e.preventDefault();
         this.text.style.height = `30px`;
 
+        console.log('public', this.public.value);
         if (this.state.match) {
             this.props.update(this.id, this.textId.value, this.text.value);
         } else {
