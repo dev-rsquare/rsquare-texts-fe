@@ -6,6 +6,16 @@
   version "2.0.40"
   resolved "https://registry.yarnpkg.com/@types/async/-/async-2.0.40.tgz#ac02de68e66c004a61b7cb16df8b1db3a254cca9"
 
+"@types/auth0-js@*":
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/@types/auth0-js/-/auth0-js-8.3.0.tgz#387070e339400b7a7b3b2f4b78cb5ff229aa67e0"
+
+"@types/auth0-lock@^10.10.1":
+  version "10.10.1"
+  resolved "https://registry.yarnpkg.com/@types/auth0-lock/-/auth0-lock-10.10.1.tgz#4e2a020f8392d6ca843926c16ad77cd2e7bc93d0"
+  dependencies:
+    "@types/auth0-js" "*"
+
 "@types/classnames@^0.0.32":
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-0.0.32.tgz#449abcd9a826807811ef101e58df9f83cfc61713"
