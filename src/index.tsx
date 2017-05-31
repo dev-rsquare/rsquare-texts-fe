@@ -1,12 +1,12 @@
 import * as React from 'react';
 import './setup';
 import {render} from 'react-dom';
-import {Wrapper} from './components/wrapper.container';
+import {Router} from './components/router';
 import {Provider} from 'react-redux';
 import {store} from './modules/store';
 
 render((
     <Provider store={store}>
-        <Wrapper/>
+        <Router/>
     </Provider>
 ), document.getElementById('root'));

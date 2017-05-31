@@ -1,6 +1,4 @@
 import * as React from 'react';
-import * as logo from './assets/logo.svg';
-import * as github from './assets/github.png';
 import './app.css';
 import {TextList} from './common/list';
 import {InputCell} from './cells/input-cell';
@@ -66,27 +64,8 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                 <IntlProvider locale={navigator.language} messages={messages}>
                     <div className="App">
                         <div className="App-header">
-                            <img src={logo} className="App-logo" alt="logo"/>
                             <h1>Texts</h1>
-                            <span>connected endpoint: <em>{getDataSource()}</em></span>
-                            <br/>
-                            <span>
-                                Do you want to change endpoint?
-                                <em>https://texts.surge.sh?endpoint=[YOUR_ENDPOINT]</em>
-                            </span>
-                            <br/>
-                            <span>
-                                Are you designer?
-                                <em>
-                                    check&nbsp;
-                                    <a href="http://texts-translator.surge.sh" target="_blank">
-                                        http://texts-translator.surge.sh
-                                    </a>
-                                </em>
-                            </span>
-                            <a href="https://github.com/deptno/texts-fe" target="_blank">
-                                <img className="-github" src={github} alt="github"/>
-                            </a>
+                            <h6>connected endpoint: <em>{getDataSource()}</em></h6>
                         </div>
                         <div className="container-fluid">
                             <div className="col-md-12">
@@ -114,10 +93,6 @@ export const App = connect<C, D, P>(state2props, dispatch2props)(
                                 </h1>
                                 {html && <ExamHtml texts={items}/>}
                             </div>
-                        </div>
-                        <div className="App-footer">
-                            author: <a href="mailto:deptno@gmail.com">deptno@gmail.com</a>
-                            (<a href="http://blog.bglee.me" target="_blank">bglee.me</a>)
                         </div>
                     </div>
                 </IntlProvider>

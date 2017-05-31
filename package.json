@@ -5,17 +5,21 @@
   "dependencies": {
     "@types/classnames": "^0.0.32",
     "@types/moment": "^2.13.0",
-    "@types/react": "^15.0.23",
+    "@types/prop-types": "^15.5.1",
+    "@types/react": "^15.0.25",
     "@types/react-intl": "^2.2.6",
     "@types/react-redux": "^4.4.40",
+    "@types/react-router-dom": "^4.0.4",
     "@types/redux-form": "^6.6.2",
     "classnames": "^2.2.5",
     "moment": "^2.18.1",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-intl": "^2.2.3",
     "react-list": "^0.8.5",
     "react-redux": "^5.0.4",
+    "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-form": "^6.6.3",
     "redux-observable": "^0.14.1",
@@ -25,7 +29,7 @@
     "@types/jest": "^19.2.2",
     "react-scripts": "0.9.5",
     "ts-jest": "^19.0.11",
-    "typescript": "^2.2.2"
+    "typescript": "^2.3.4"
   },
   "scripts": {
     "start": "react-scripts start",
