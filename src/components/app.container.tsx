@@ -10,6 +10,7 @@ import {addLocaleData, IntlProvider} from 'react-intl';
 import * as ko from 'react-intl/locale-data/ko'
 import {getDataSource} from '../env';
 import {ExamHtml} from './exam-html';
+import {RouteComponentProps} from 'react-router';
 
 addLocaleData(ko);
 
@@ -41,8 +42,8 @@ const dispatch2props = bindActionCreators.bind(null, {
     deployJson
 });
 
-export const App = connect<C, D, P>(state2props, dispatch2props)(
-    class extends React.Component<C & D & P, S> {
+export const App = connect<C, D, RouteComponentProps<P>>(state2props, dispatch2props)(
+    class extends React.Component<C & D & RouteComponentProps<P>, S> {
         state = {intl: false, html: true};
 
         private toggleExamIntl;
