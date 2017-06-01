@@ -31,10 +31,13 @@ export const createIdMethodActionEpic$ = ({method, pending, ok, err, nextActions
     (action$: ActionsObservable<any>, store): Observable<any> =>
         action$
             .ofType(pending)
-            .flatMap(({payload: {id, ...rest}}) =>
+            .flatMap(({payload: {url, id, ...rest}}) =>
                 Observable.ajax({
                     method,
-                    url : [getDataSource(), id].join('/'),
+                    headers: {
+                        '-Control-Allow-Origin': '*'
+                    },
+                    url : url || [getDataSource(), id].join('/'),
                     body: JSON.stringify(rest)
                 }))
             .mergeMap(payload => [{type: ok, payload: payload.response}, ...nextActions])
