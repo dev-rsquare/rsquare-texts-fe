@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as qs from 'querystring';
 import {App} from './app.container';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {HashRouter, Route} from 'react-router-dom';
 import {Authenticator} from './authenticator';
 
 export class Router extends React.Component<null, null> {
     render() {
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <div>
                     <Route path="/" component={App}/>
                     <Route path="/authorized" render={({location}) => {
@@ -15,7 +15,7 @@ export class Router extends React.Component<null, null> {
                         return <Authenticator auth={search}/>
                     }}/>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         );
     }
 }

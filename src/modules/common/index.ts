@@ -35,7 +35,8 @@ export const createIdMethodActionEpic$ = ({method, pending, ok, err, nextActions
                 Observable.ajax({
                     method,
                     headers: {
-                        '-Control-Allow-Origin': '*'
+                        // 'Access-Control-Allow-Origin': '*'
+                        //todo: Authorization
                     },
                     url : url || [getDataSource(), id].join('/'),
                     body: JSON.stringify(rest)

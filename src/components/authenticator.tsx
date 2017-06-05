@@ -1,9 +1,7 @@
 import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
-import * as qs from 'querystring';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as map from 'map-obj';
 import {exchangeCodeForToken} from '../modules/authenticator/index';
 
 interface P {
@@ -36,6 +34,9 @@ export const Authenticator = connect<any, any, any>(state2props, dispatch2props)
     class extends React.Component<RouteComponentProps<P>&P&D, null> {
         constructor(props) {
             super(props);
+        }
+        render() {
+            return null;
         }
     }
 );
