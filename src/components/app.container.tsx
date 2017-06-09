@@ -11,7 +11,6 @@ import * as ko from 'react-intl/locale-data/ko'
 import {getDataSource} from '../env';
 import {ExamHtml} from './exam-html';
 import {RouteComponentProps} from 'react-router';
-import {SignInWithGoogle} from './sign-in-with-google';
 
 addLocaleData(ko);
 
@@ -31,7 +30,7 @@ interface S {
     html: boolean;
 }
 
-const state2props    = (state: MasterState): C => {
+const state2props    = (state: RootState): C => {
     const {items, fetching, messages, canUpdate} = state.texts;
     return {items, fetching, messages, canUpdate};
 };
@@ -66,7 +65,6 @@ export const App = connect<C, D, RouteComponentProps<P>>(state2props, dispatch2p
                 <IntlProvider locale={navigator.language} messages={messages}>
                     <div className="App">
                         <div className="App-header">
-                            <SignInWithGoogle/>
                             <h1>Texts</h1>
                             <h6>connected endpoint: <em>{getDataSource()}</em></h6>
                         </div>
@@ -88,7 +86,7 @@ export const App = connect<C, D, RouteComponentProps<P>>(state2props, dispatch2p
                                 <h1 onClick={this.toggleExamIntl}>
                                     <mark>react-intl {this.strShow(intl)}</mark>
                                 </h1>
-                                {intl && <ExamIntl/>}
+                                {/*{intl && <ExamIntl/>}*/}
                             </div>
                             <div className="col-md-12">
                                 <h1 onClick={this.toggleExamHtml}>

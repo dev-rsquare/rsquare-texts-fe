@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@types/classnames": "^0.0.32",
+    "@types/jsonwebtoken": "^7.2.1",
+    "@types/jwt-decode": "^1.4.28",
     "@types/moment": "^2.13.0",
     "@types/prop-types": "^15.5.1",
     "@types/react": "^15.0.25",
@@ -11,8 +13,10 @@
     "@types/react-redux": "^4.4.40",
     "@types/react-router-dom": "^4.0.4",
     "@types/redux-form": "^6.6.2",
+    "@types/redux-persist": "^4.3.1",
     "camelcase-keys": "^4.1.0",
     "classnames": "^2.2.5",
+    "jwt-decode": "^2.2.0",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
@@ -24,12 +28,13 @@
     "redux": "^3.6.0",
     "redux-form": "^6.6.3",
     "redux-observable": "^0.14.1",
+    "redux-persist": "^4.8.0",
     "rxjs": "^5.3.0"
   },
   "devDependencies": {
     "@types/jest": "^19.2.2",
     "react-scripts": "0.9.5",
-    "ts-jest": "^19.0.11",
+    "ts-jest": "^20.0.5",
     "typescript": "^2.3.4"
   },
   "scripts": {

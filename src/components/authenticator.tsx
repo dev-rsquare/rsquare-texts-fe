@@ -2,41 +2,44 @@ import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {exchangeCodeForToken} from '../modules/authenticator/index';
+import {decodeToken, saveToken} from '../modules/auth/index';
+import * as qs from 'querystring';
+import {isError} from '../modules/common';
 
-interface P {
-    google: {
-        endpoint: string;
-        clientId: string;
-        responseType: string;
-        scope: string;
-        redirectUri: string;
-    },
-    auth: {
-        authuser: number;
-        code: string;
-        hd: string;
-        prompt: string;
-        session_state: string;
-    }
+interface StateProps extends AuthState {
 }
-interface D {
-    exchangeCodeForToken(code: string);
+interface Props {
 }
-const state2props = (state: MasterState) => ({});
+interface DispatchProps {
+    decodeToken(token: string);
+    saveToken(payload);
+}
+const state2props = (state: RootState): AuthState => {
+    return state.auth;
+};
 const dispatch2props = dispatch => bindActionCreators({
-    exchangeCodeForToken
+    decodeToken,
+    saveToken
 }, dispatch);
 
-type Props = RouteComponentProps<P>&P&D;
+type AuthenticatorProps = RouteComponentProps<any> & StateProps & DispatchProps & Props;
 
-export const Authenticator = connect<any, any, any>(state2props, dispatch2props)(
-    class extends React.Component<RouteComponentProps<P>&P&D, null> {
-        constructor(props) {
-            super(props);
-        }
+export const Authenticator = connect<StateProps, DispatchProps, Props>(state2props, dispatch2props)(
+    class extends React.Component<AuthenticatorProps, undefined> {
         render() {
             return null;
+        }
+        componentDidMount() {
+            const {token} = qs.parse(this.props.location.search.slice(1));
+            const result = this.props.decodeToken(token);
+            if (!isError(result)) {
+                this.props.saveToken(result.payload);
+            }
+        }
+        componentWillReceiveProps(props) {
+            if ((this.props.token !== props.token) && props.token) {
+                this.props.history.push('/');
+            }
         }
     }
 );

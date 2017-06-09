@@ -20,8 +20,9 @@ interface IText extends IModel<Text> {
 }
 type Texts = Text[];
 
-interface MasterState {
+interface RootState {
     texts: TextsState;
+    auth: AuthState;
 }
 interface TextsState {
     items: IText[];
@@ -29,4 +30,10 @@ interface TextsState {
     count: number;
     messages: any;
     fetching: number;
+}
+interface AuthState {
+    token: string;
+}
+interface DecodedToken {
+    
 }

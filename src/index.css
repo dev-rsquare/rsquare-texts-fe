@@ -77,3 +77,10 @@ body {
     right: 0px;
     margin: 10px 10px 0 0;
 }
+.-vertical-center {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -5,25 +5,25 @@ import * as ko from 'react-intl/locale-data/ko'
 
 addLocaleData(ko);
 
-interface P {
+interface Props {
 }
-interface C {
+interface StateProps {
     items: IText[];
     fetching: number;
     messages: any;
 }
-interface D {
+interface DispatchProps {
 }
 interface S {
 }
 
-const state2props = (state: MasterState): C => {
+const state2props = (state: RootState): StateProps => {
     const {items, fetching, messages} = state.texts;
     return {items, fetching, messages};
 };
 
-export const ExamIntl = connect<C, D, P>(state2props)(
-    class extends React.Component<C & D & P, S> {
+export const ExamIntl = connect<StateProps, DispatchProps, Props>(state2props)(
+    class extends React.Component<StateProps & DispatchProps & Props, S> {
         render() {
             const {items = [], messages} = this.props;
             if (!messages) {
