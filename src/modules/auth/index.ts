@@ -16,8 +16,8 @@ export const decodeToken = (token: string) => {
         return error(DECODE_ID_TOKEN);
     }
 };
-export const saveToken = (payload: DecodedToken) => {
-    return {type: SAVE_ID_TOKEN, payload};
+export const saveToken = (token: string, payload: DecodedToken) => {
+    return {type: SAVE_ID_TOKEN, payload: {token, payload}};
 };
 
 export const authEpics$ = combineEpics(
@@ -25,7 +25,8 @@ export const authEpics$ = combineEpics(
 export const authReducer       = (state: AuthState = {} as AuthState, action) => {
     switch (action.type) {
         case SAVE_ID_TOKEN: {
-            return {...state, token: action.payload};
+            const {token, payload} = action.payload;
+            return {...state, token, user: payload};
         }
         default:
             return state;

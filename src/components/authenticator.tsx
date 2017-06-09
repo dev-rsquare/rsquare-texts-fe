@@ -12,7 +12,7 @@ interface Props {
 }
 interface DispatchProps {
     decodeToken(token: string);
-    saveToken(payload);
+    saveToken(token: string, payload);
 }
 const state2props = (state: RootState): AuthState => {
     return state.auth;
@@ -33,7 +33,7 @@ export const Authenticator = connect<StateProps, DispatchProps, Props>(state2pro
             const {token} = qs.parse(this.props.location.search.slice(1));
             const result = this.props.decodeToken(token);
             if (!isError(result)) {
-                this.props.saveToken(result.payload);
+                this.props.saveToken(token, result.payload);
             }
         }
         componentWillReceiveProps(props) {
