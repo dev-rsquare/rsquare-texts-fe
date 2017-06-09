@@ -22,5 +22,5 @@ if (!dev) {
 }
 
 export const afterRehydrate = new Promise(resolve =>
-    persistStore(store, {whitelist: ['authenticator']}, resolve)
+    persistStore(store, {whitelist: ['auth']}, resolve)
 );

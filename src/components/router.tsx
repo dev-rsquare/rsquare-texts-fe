@@ -10,7 +10,7 @@ export class Router extends React.Component<null, null> {
         return (
             <HashRouter>
                 <div>
-                    <AuthRoute path="/" component={App} restrict/>
+                    <AuthRoute path="/" component={App} restrict exact/>
                     <Route path="/login" component={Login}/>
                     <Route path="/authorized" component={Authenticator}/>
                 </div>

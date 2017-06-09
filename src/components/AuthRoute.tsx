@@ -11,12 +11,15 @@ type AuthRouteProps = RouteProps & PageRestrcition & AuthState;
 
 const state2props = (state: RootState) => state.auth;
 
-export const AuthRoute = connect(state2props)(
+export const AuthRoute = connect<AuthState, null, null>(state2props)(
     (props: AuthRouteProps) => {
         const {restrict, token, component} = props;
         if (restrict) {
             if (!token) {
-                return <Redirect to={PATH_LOGIN}/>;
+                return <Redirect to={{
+                    pathname: PATH_LOGIN,
+                    state: {from: props.location}
+                }}/>;
             }
         }
         return <Route {...props} component={component}/>;
