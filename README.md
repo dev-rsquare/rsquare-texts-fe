@@ -1,12 +1,5 @@
 texts-fe
 ===
 
-deployed at <http://texts.surge.sh>
-
-if you want to use your own backend(database), deploy your serverless-texts(<https://github.com/deptno/serverless-texts>)
-
-then connect with endpoint querystring like below
-
-http://texts.surge.sh?endpoint=[https://YOUR_OWN_ENDPOINT]
-
-
+serverless-texts 짝궁 front-end
+텍스트 입력해서 서버에 저장 후 json으로 리턴받기 위한 fe 
